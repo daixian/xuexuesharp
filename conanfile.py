@@ -15,7 +15,7 @@ class xuexuesharpConan(ConanFile):
     version = "0.0.1"
     license = "This project is licensed under GLWTPL"
     author = "daixian<amano_tooko@qq.com>"
-    url = "https://github.com/daixian/conan-helloword-template"
+    url = "https://github.com/daixian/xuexuesharp"
     description = "一些仿C#类库的接口"
     topics = ("opencv", "daixian")
     settings = "os", "compiler", "build_type", "arch"
@@ -34,7 +34,9 @@ class xuexuesharpConan(ConanFile):
         转换python的设置到CMake
         '''
         cmake = CMake(self)
-        cmake.definitions["XUEXUESHARP_BUILD_SHARED"] = self.options.shared
+        # cmake.definitions["XUEXUESHARP_BUILD_SHARED"] = self.options.shared
+        # 实际上这个库应该只为静态库
+        cmake.definitions["XUEXUESHARP_BUILD_SHARED"] = False
         return cmake
 
     def build(self):
