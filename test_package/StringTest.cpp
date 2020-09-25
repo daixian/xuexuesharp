@@ -1,6 +1,6 @@
 ﻿#include "gtest/gtest.h"
 
-#include "../src/xuexue/csharp/String.h"
+#include "xuexue/csharp/String.h"
 
 #pragma execution_character_set("utf-8")
 
