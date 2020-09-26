@@ -41,14 +41,6 @@ class FileSystemInfo
 
     //
     // 摘要:
-    //     Gets the string representing the extension part of the file.
-    //
-    // 返回结果:
-    //     A string containing the System.IO.FileSystemInfo extension.
-    virtual std::string Extension() = 0;
-
-    //
-    // 摘要:
     //     Gets a value indicating whether the file or directory exists.
     //
     // 返回结果:
@@ -79,15 +71,6 @@ class FileSystemInfo
     //     Windows XP or earlier. This open handle can result from enumerating directories
     //     and files. For more information, see How to: Enumerate Directories and Files.
     virtual void Delete() = 0;
-
-    //
-    // 摘要:
-    //     Refreshes the state of the object.
-    //
-    // 异常:
-    //   T:System.IO.IOException:
-    //     A device such as a disk drive is not ready.
-    virtual void Refresh() = 0;
 
   private:
 };
