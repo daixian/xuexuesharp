@@ -1,6 +1,7 @@
 ﻿#include "Convert.h"
 #include "../libs/cppcodec/base32_crockford.hpp"
-#include "../libs/cppcodec/base64_default_rfc4648.hpp"
+#include "../libs/cppcodec/base64_rfc4648.hpp"
+#include "../libs/cppcodec/base64_url.hpp"
 
 namespace xuexue {
 namespace csharp {
@@ -20,12 +21,15 @@ base64_url_unpaddedvariant:
 与相同base64_url，但是'='填充字符是可选的。编码时，不会在结果字符串上附加填充。解码接受填充或未填充的字符串。
 */
 
-std::string Convert::ToBase64String(const unsigned char* inArray, int offset, int length)
+std::string Convert::ToBase64String(const unsigned char* inArray, int offset, int length, Base64Options option)
 {
     //在C#中有Base64FormattingOptions:
     //如果每 76 个字符插入一个分行符，则使用 InsertLineBreaks，如果不插入分行符，则使用 None。
     const unsigned char* ptr = inArray + offset;
-    return cppcodec::base64_rfc4648::encode<std::string>(ptr, length);
+    if (option == Base64Options::URL)
+        return cppcodec::base64_url::encode<std::string>(ptr, length);
+    else
+        return cppcodec::base64_rfc4648::encode<std::string>(ptr, length);
 }
 
 std::string Convert::ToBase32String(const unsigned char* inArray, int offset, int length)
@@ -34,9 +38,12 @@ std::string Convert::ToBase32String(const unsigned char* inArray, int offset, in
     return cppcodec::base32_crockford::encode<std::string>(ptr, length);
 }
 
-std::vector<unsigned char> Convert::FromBase64String(std::string s)
+std::vector<unsigned char> Convert::FromBase64String(std::string s, Base64Options option)
 {
-    return cppcodec::base64_rfc4648::decode<std::vector<unsigned char>>(s);
+    if (option == Base64Options::URL)
+        return cppcodec::base64_url::decode<std::vector<unsigned char>>(s);
+    else
+        return cppcodec::base64_rfc4648::decode<std::vector<unsigned char>>(s);
 }
 
 std::vector<unsigned char> Convert::FromBase32String(std::string s)
