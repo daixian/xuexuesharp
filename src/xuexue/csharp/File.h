@@ -86,7 +86,7 @@ class File
      *
      * @returns 文件中的所有文本(UTF8编码).
      */
-    static std::string ReadAllText(const std::string& path, const Encoding encoding);
+    static std::string ReadAllText(const std::string& path, Encoding encoding);
 
     /**
      * 打开一个文件，向其中写入指定的字节，然后关闭此文件。
@@ -121,7 +121,7 @@ class File
      * @param  contents 要写入文件的内容.
      * @param  encoding 这个文件的编码.
      */
-    static void WriteAllText(const std::string& path, const std::string& contents, const Encoding encoding);
+    static void WriteAllText(const std::string& path, const std::string& contents, Encoding encoding);
 };
 
 } // namespace csharp

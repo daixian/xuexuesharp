@@ -38,7 +38,7 @@ std::string Convert::ToBase32String(const unsigned char* inArray, int offset, in
     return cppcodec::base32_crockford::encode<std::string>(ptr, length);
 }
 
-std::vector<unsigned char> Convert::FromBase64String(std::string s, Base64Options option)
+std::vector<unsigned char> Convert::FromBase64String(const std::string& s, Base64Options option)
 {
     if (option == Base64Options::URL)
         return cppcodec::base64_url::decode<std::vector<unsigned char>>(s);
@@ -46,7 +46,7 @@ std::vector<unsigned char> Convert::FromBase64String(std::string s, Base64Option
         return cppcodec::base64_rfc4648::decode<std::vector<unsigned char>>(s);
 }
 
-std::vector<unsigned char> Convert::FromBase32String(std::string s)
+std::vector<unsigned char> Convert::FromBase32String(const std::string& s)
 {
     return cppcodec::base32_crockford::decode<std::vector<unsigned char>>(s);
 }

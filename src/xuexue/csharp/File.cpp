@@ -26,14 +26,6 @@ ios::noreplace：不覆盖文件，所以打开文件时如果文件存在失败
 ios::trunc：    如果文件存在，把文件长度设为0 
 */
 
-//File::File()
-//{
-//}
-//
-//File::~File()
-//{
-//}
-
 void File::AppendAllText(const std::string& path, const std::string& contents)
 {
     std::ofstream ofs(path, std::ios::app | std::ios::binary);
@@ -104,7 +96,7 @@ std::string File::ReadAllText(const std::string& path)
     return text;
 }
 
-std::string File::ReadAllText(const std::string& path, const Encoding encoding)
+std::string File::ReadAllText(const std::string& path, Encoding encoding)
 {
     //C#里面的字符串应该都是UTF8的,所以这个函数应该就是把GBK编码的文本转成UTF8的
     if (encoding == Encoding::GBK) {
@@ -148,7 +140,7 @@ void File::WriteAllText(const std::string& path, const std::string& contents)
     }
 }
 
-void File::WriteAllText(const std::string& path, const std::string& contents, const Encoding encoding)
+void File::WriteAllText(const std::string& path, const std::string& contents, Encoding encoding)
 {
     //C#里面的字符串应该都是UTF8的
     if (encoding == Encoding::GBK) {

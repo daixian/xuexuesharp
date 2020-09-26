@@ -65,7 +65,7 @@ class Convert
      *
      * @returns 解码的数据.
      */
-    static std::vector<unsigned char> FromBase64String(std::string s, Base64Options option = Base64Options::RFC4648);
+    static std::vector<unsigned char> FromBase64String(const std::string& s, Base64Options option = Base64Options::RFC4648);
 
     /**
      * base32的编码(crockford)转成字节
@@ -77,7 +77,7 @@ class Convert
      *
      * @returns 解码的数据.
      */
-    static std::vector<unsigned char> FromBase32String(std::string s);
+    static std::vector<unsigned char> FromBase32String(const std::string& s);
 };
 
 } // namespace csharp
