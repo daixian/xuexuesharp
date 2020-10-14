@@ -34,10 +34,29 @@ class Directory
      *
      * @returns 一个表示在指定路径的目录的对象。 无论指定路径的目录是否已经存在，都将返回此对象。.
      */
-    static DirectoryInfo CreateDirectory(const std::string& path);
+    static DirectoryInfo createDirectory(const std::string& path);
 
-    static void Delete(const std::string& path);
+    /**
+     * 删除文件夹
+     *
+     * @author daixian
+     * @date 2020/10/15
+     *
+     * @param  path      Full pathname of the file.
+     * @param  recursive True to process recursively, false to process locally only.
+     */
     static void Delete(const std::string& path, bool recursive);
+
+    /**
+     * 文件夹是否存在
+     *
+     * @author daixian
+     * @date 2020/10/15
+     *
+     * @param  path Full pathname of the file.
+     *
+     * @returns True if it succeeds, false if it fails.
+     */
     static bool Exists(const std::string& path);
 
     /**

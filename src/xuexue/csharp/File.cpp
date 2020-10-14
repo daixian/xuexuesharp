@@ -124,6 +124,8 @@ std::string File::ReadAllText(const std::string& path, Encoding encoding)
 
 void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 {
+    //如果文件夹不存在那么会报异常
+    //System.IO.DirectoryNotFoundException:“Could not find a part of the path 'C:\\shaTest\\text.txt'.”
     std::ofstream ofs(path, std::ios::out | std::ios::binary);
     if (ofs.is_open()) {
         ofs.write(bytes, static_cast<std::streamsize>(len));

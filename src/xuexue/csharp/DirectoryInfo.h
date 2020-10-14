@@ -9,16 +9,22 @@ namespace csharp {
 class DirectoryInfo : FileSystemInfo
 {
   public:
-    DirectoryInfo();
+    DirectoryInfo(const std::string& path);
     ~DirectoryInfo();
 
-    //
-    // 摘要:
-    //     Gets the name of this System.IO.DirectoryInfo instance.
-    //
-    // 返回结果:
-    //     The directory name.
-    std::string Name();
+    /**
+     * 获取目录的完整路径.
+     * 在C#中 D:/test/12233234 会返回 D:\\test\\12233234
+     * 同时,D:/test/12233234/ 会返回 D:\\test\\12233234\\
+     * C#中这存在两种情况。
+     * 在这个函数中一定会返回D:\\test\\12233234\\，即最后会带上斜杠。
+     *
+     * @author daixian
+     * @date 2020/9/26
+     *
+     * @returns A std::string.
+     */
+    virtual std::string FullName();
 
     //
     // 摘要:
@@ -26,7 +32,25 @@ class DirectoryInfo : FileSystemInfo
     //
     // 返回结果:
     //     true if the directory exists; otherwise, false.
-    bool Exists();
+    virtual bool Exists();
+
+    /**
+     * 返回一个目录的最后一级的名字.
+     *
+     * @author daixian
+     * @date 2020/10/15
+     *
+     * @returns A std::string.
+     */
+    virtual std::string Name();
+
+    /**
+     * Deletes this object
+     *
+     * @author daixian
+     * @date 2020/9/26
+     */
+    virtual void Delete();
 
     //
     // 摘要:
@@ -53,9 +77,16 @@ class DirectoryInfo : FileSystemInfo
     //     The caller does not have the required permission.
     DirectoryInfo Root();
 
+    //
+    // 摘要:
+    //     Creates a directory.
+    //
+    // 异常:
+    //   T:System.IO.IOException:
+    //     The directory cannot be created.
+    void Create(bool recursive = true);
+
   private:
-    class Impl;
-    Impl* _impl = nullptr;
 };
 
 } // namespace csharp

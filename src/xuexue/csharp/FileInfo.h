@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "FileSystemInfo.h"
+#include "DirectoryInfo.h"
 
 namespace xuexue {
 namespace csharp {
@@ -43,6 +44,14 @@ class FileInfo : FileSystemInfo
     virtual std::string Name();
 
     /**
+     * Deletes this object
+     *
+     * @author daixian
+     * @date 2020/9/26
+     */
+    virtual void Delete();
+
+    /**
      * 获取文件名,不带扩展名.
      *
      * @author daixian
@@ -62,17 +71,26 @@ class FileInfo : FileSystemInfo
      */
     std::string Extension();
 
-    /**
-     * Deletes this object
-     *
-     * @author daixian
-     * @date 2020/9/26
-     */
-    virtual void Delete();
+    //
+    // 摘要:
+    //     Gets a string representing the directory's full path.
+    //     获取表示目录的完整路径的字符串。
+    //
+    // 返回结果:
+    //     A string representing the directory's full path.
+    //
+    // 异常:
+    //   T:System.ArgumentNullException:
+    //     null was passed in for the directory name.
+    //
+    //   T:System.IO.PathTooLongException:
+    //     The fully qualified path name exceeds the system-defined maximum length.
+    //
+    //   T:System.Security.SecurityException:
+    //     The caller does not have the required permission.
+    std::string DirectoryName();
 
   private:
-    class Impl;
-    Impl* _impl = nullptr;
 };
 
 } // namespace csharp

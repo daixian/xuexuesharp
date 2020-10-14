@@ -22,7 +22,7 @@ TEST(FileInfo, BaseName)
 TEST(FileInfo, Extension)
 {
     FileInfo fi("./test/666.txt");
-    ASSERT_TRUE(fi.Extension() == "txt");
+    ASSERT_EQ(fi.Extension(), "txt");
 }
 
 TEST(FileInfo, Name)
@@ -35,4 +35,11 @@ TEST(FileInfo, FullName)
 {
     FileInfo fi("./test/666.txt");
     string fn = fi.FullName();
+}
+
+TEST(FileInfo, DirectoryName)
+{
+    FileInfo fi("d:/test/12233234/666.txt");
+    //在c#里实际返回中不带最后一个\\,c#的结果是 d:\\test\\12233234
+    ASSERT_EQ(fi.DirectoryName(), "d:\\test\\12233234\\");
 }
