@@ -57,7 +57,8 @@ DirectoryInfo DirectoryInfo::Root()
     //windows上C#返回如下
     return DirectoryInfo(device + ":\\");
 #else
-    return DirectoryInfo(device);
+    //mac下返回这个，其他系统可能也是
+    return DirectoryInfo("/");
 #endif
 }
 

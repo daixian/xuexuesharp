@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.IO;
 
 namespace xuexuesharpTest
@@ -11,12 +11,21 @@ namespace xuexuesharpTest
         }
 
         [Test]
-        public void Test1()
+        public void TestGetFiles()
         {
-            //ֻ������Ŀ¼�µ��ļ�
-            string[] files = Directory.GetFiles("C:/");
+            //只会搜索目录下的文件
+            string[] files = Directory.GetFiles("./");
 
-            Assert.Pass();
+            //Assert.Pass();
+            string root = Directory.GetDirectoryRoot("./");
+        }
+
+        
+        [Test]
+        public void TestGetFiles()
+        {
+            string root = Directory.GetDirectoryRoot("./");
+            //在mac下这个root是返回/
         }
     }
 }

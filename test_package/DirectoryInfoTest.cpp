@@ -72,6 +72,7 @@ TEST(DirectoryInfo, Root)
     DirectoryInfo di("./test/666txt");
     DirectoryInfo root = di.Root();
     //目前在其他平台这个函数的C#结果是什么不太清楚
+    ASSERT_EQ(root.FullName(), "/");
 #endif
 }
 
