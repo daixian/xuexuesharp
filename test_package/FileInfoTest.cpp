@@ -1,4 +1,4 @@
-﻿#include "gtest/gtest.h"
+#include "gtest/gtest.h"
 
 #include "xuexue/csharp/FileInfo.h"
 
@@ -35,11 +35,18 @@ TEST(FileInfo, FullName)
 {
     FileInfo fi("./test/666.txt");
     string fn = fi.FullName();
+    ASSERT_TRUE(fn.size() > 13);
 }
 
 TEST(FileInfo, DirectoryName)
 {
+#if _WIN32
     FileInfo fi("d:/test/12233234/666.txt");
     //在c#里实际返回中不带最后一个\\,c#的结果是 d:\\test\\12233234
     ASSERT_EQ(fi.DirectoryName(), "d:\\test\\12233234\\");
+#else
+    FileInfo fi("/test/12233234/666.txt");
+    //在c#里实际返回中不带最后一个\\,c#的结果是 d:\\test\\12233234
+    ASSERT_EQ(fi.DirectoryName(), "/test/12233234/");
+#endif
 }
