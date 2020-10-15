@@ -35,7 +35,7 @@ class File
      * @author daixian
      * @date 2020/9/25
      *
-     * @param  path The path to delete.
+     * @param  path 要删除的文件路径.
      */
     static void Delete(const std::string& path);
 

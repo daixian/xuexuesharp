@@ -7,6 +7,48 @@
 using namespace std;
 using namespace xuexue::csharp;
 
+TEST(Directory, createDirectory_self)
+{
+    string path = "./";
+    Directory::createDirectory(path);
+    ASSERT_TRUE(Directory::Exists(path));
+}
+
+TEST(Directory, createDirectory_self2)
+{
+    string path = ".";
+    Directory::createDirectory(path);
+    ASSERT_TRUE(Directory::Exists(path));
+}
+
+TEST(Directory, createDirectory_Del)
+{
+    //创建然后删除
+    string path = "./createDirectoryTest/123";
+    Directory::createDirectory(path);
+    ASSERT_TRUE(Directory::Exists(path));
+    ASSERT_TRUE(Directory::Exists("./createDirectoryTest"));
+    ASSERT_TRUE(Directory::Exists("./createDirectoryTest/"));
+    Directory::Delete("./createDirectoryTest", true);
+    ASSERT_FALSE(Directory::Exists("./createDirectoryTest"));
+    ASSERT_FALSE(Directory::Exists("./createDirectoryTest/"));
+    ASSERT_FALSE(Directory::Exists(path));
+}
+
+TEST(Directory, createDirectory_Del2)
+{
+    //创建然后删除
+    string path = "./createDirectoryTest/123/";
+    Directory::createDirectory(path);
+    ASSERT_TRUE(Directory::Exists(path));
+    ASSERT_TRUE(Directory::Exists("./createDirectoryTest"));
+    ASSERT_TRUE(Directory::Exists("./createDirectoryTest/"));
+    Directory::Delete("./createDirectoryTest", true);
+    ASSERT_FALSE(Directory::Exists("./createDirectoryTest"));
+    ASSERT_FALSE(Directory::Exists("./createDirectoryTest/"));
+    ASSERT_FALSE(Directory::Exists(path));
+}
+
 TEST(Directory, Exists_self)
 {
     ASSERT_TRUE(Directory::Exists("./"));

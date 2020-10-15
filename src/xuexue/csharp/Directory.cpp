@@ -10,14 +10,14 @@ namespace csharp {
 
 DirectoryInfo Directory::createDirectory(const std::string& path)
 {
-    Poco::File dir(path);
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
     dir.createDirectories();
     return DirectoryInfo(path);
 }
 
 void Directory::Delete(const std::string& path, bool recursive)
 {
-    Poco::File dir(Poco::Path(path).makeDirectory().toString());
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
     dir.remove(recursive);
 }
 

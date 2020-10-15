@@ -12,12 +12,12 @@ from conans import ConanFile, CMake, tools
 
 class xuexuesharpConan(ConanFile):
     name = "xuexuesharp"
-    version = "0.0.5"
+    version = "0.0.6"
     license = "This project is licensed under GLWTPL"
     author = "daixian<amano_tooko@qq.com>"
     url = "https://github.com/daixian/xuexuesharp"
     description = "一些仿C#类库的接口"
-    topics = ("opencv", "daixian")
+    topics = ("csharp", "xuexue", "daixian")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False,

@@ -10,6 +10,7 @@ namespace csharp {
 class Directory
 {
   public:
+    // 目前未使用
     enum SearchOption
     {
         //
@@ -30,9 +31,9 @@ class Directory
      * @author daixian
      * @date 2020/9/26
      *
-     * @param  path 要创建的目录。.
+     * @param  path 要创建的目录.
      *
-     * @returns 一个表示在指定路径的目录的对象。 无论指定路径的目录是否已经存在，都将返回此对象。.
+     * @returns 一个表示在指定路径的目录的对象。 无论指定路径的目录是否已经存在，都将返回此对象.
      */
     static DirectoryInfo createDirectory(const std::string& path);
 
@@ -42,10 +43,10 @@ class Directory
      * @author daixian
      * @date 2020/10/15
      *
-     * @param  path      Full pathname of the file.
-     * @param  recursive True to process recursively, false to process locally only.
+     * @param  path      要删除的目录.
+     * @param  recursive (Optional) 如果为true,递归的删除这个文件夹里所有的文件.
      */
-    static void Delete(const std::string& path, bool recursive);
+    static void Delete(const std::string& path, bool recursive = true);
 
     /**
      * 文件夹是否存在
@@ -85,7 +86,7 @@ class Directory
      *
      * @returns The files.
      */
-    static std::vector<std::string> GetFiles(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
+    //static std::vector<std::string> GetFiles(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
 
     /**
      * 返回指定目录中文件夹的名称（包括其路径）。
