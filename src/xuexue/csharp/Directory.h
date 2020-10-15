@@ -61,11 +61,12 @@ class Directory
 
     /**
      * 返回指定目录中文件的名称（包括其路径）。
+     * (只有当前一级目录).
      *
      * @author daixian
      * @date 2020/9/26
      *
-     * @param  path 要搜索的目录的相对或绝对路径。 此字符串不区分大小写。.
+     * @param  path 要搜索的目录的相对或绝对路径,此字符串不区分大小写.
      *
      * @returns The files.
      */
@@ -85,6 +86,19 @@ class Directory
      * @returns The files.
      */
     static std::vector<std::string> GetFiles(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
+
+    /**
+     * 返回指定目录中文件夹的名称（包括其路径）。
+     * (只有当前一级目录).
+     *
+     * @author daixian
+     * @date 2020/10/15
+     *
+     * @param  path 要搜索的目录的相对或绝对路径,此字符串不区分大小写.
+     *
+     * @returns The directories.
+     */
+    static std::vector<std::string> GetDirectories(const std::string& path);
 };
 
 } // namespace csharp

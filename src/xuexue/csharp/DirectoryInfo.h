@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <vector>
 #include <string>
+#include <memory>
+
 #include "FileInfo.h"
 
 namespace xuexue {
@@ -9,6 +11,8 @@ namespace csharp {
 class DirectoryInfo : FileSystemInfo
 {
   public:
+    //必须要有一个默认构造函数,用来拷贝,否则有些STL模板可能使用不了.
+    DirectoryInfo();
     DirectoryInfo(const std::string& path);
     ~DirectoryInfo();
 
@@ -85,6 +89,53 @@ class DirectoryInfo : FileSystemInfo
     //   T:System.IO.IOException:
     //     The directory cannot be created.
     void Create(bool recursive = true);
+
+    //
+    // 摘要:
+    //     Returns a file list from the current directory matching the given search pattern.
+    //
+    // 参数:
+    //   searchPattern:
+    //     The search string to match against the names of files. This parameter can contain
+    //     a combination of valid literal path and wildcard (* and ?) characters, but it
+    //     doesn't support regular expressions.
+    //
+    // 返回结果:
+    //     An array of type System.IO.FileInfo.
+    //
+    // 异常:
+    //   T:System.ArgumentException:
+    //     searchPattern contains one or more invalid characters defined by the System.IO.Path.GetInvalidPathChars
+    //     method.
+    //
+    //   T:System.ArgumentNullException:
+    //     searchPattern is null.
+    //
+    //   T:System.IO.DirectoryNotFoundException:
+    //     The path is invalid (for example, it is on an unmapped drive).
+    //
+    //   T:System.Security.SecurityException:
+    //     The caller does not have the required permission.
+    std::vector<FileInfo> GetFiles();
+
+    //
+    // 摘要:
+    //     Returns the subdirectories of the current directory.
+    //
+    // 返回结果:
+    //     An array of System.IO.DirectoryInfo objects.
+    //
+    // 异常:
+    //   T:System.IO.DirectoryNotFoundException:
+    //     The path encapsulated in the System.IO.DirectoryInfo object is invalid, such
+    //     as being on an unmapped drive.
+    //
+    //   T:System.Security.SecurityException:
+    //     The caller does not have the required permission.
+    //
+    //   T:System.UnauthorizedAccessException:
+    //     The caller does not have the required permission.
+    std::vector<DirectoryInfo> GetDirectories();
 
   private:
 };

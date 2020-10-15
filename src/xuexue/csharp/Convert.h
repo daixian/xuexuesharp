@@ -38,7 +38,7 @@ class Convert
      *
      * @returns base64编码的文本.
      */
-    static std::string ToBase64String(const unsigned char* inArray, int offset, int length, Base64Options option = Base64Options::RFC4648);
+    static std::string ToBase64String(const void* inArray, int offset, int length, Base64Options option = Base64Options::RFC4648);
 
     /**
      * 转换字节数组到Base32编码,使用crockford字符表
@@ -52,7 +52,7 @@ class Convert
      *
      * @returns base32编码的文本.
      */
-    static std::string ToBase32String(const unsigned char* inArray, int offset, int length);
+    static std::string ToBase32String(const void* inArray, int offset, int length);
 
     /**
      * base64的编码转成字节

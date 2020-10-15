@@ -15,16 +15,20 @@ namespace xuexuesharpTest
         {
             //只会搜索目录下的文件
             string[] files = Directory.GetFiles("./");
-
             //Assert.Pass();
-            string root = Directory.GetDirectoryRoot("./");
         }
 
-        
         [Test]
-        public void TestGetFiles()
+        public void TestGetDirectoryRoot()
         {
             string root = Directory.GetDirectoryRoot("./");
+            //在mac下这个root是返回/
+        }
+
+        [Test]
+        public void TestGetDirectories()
+        {
+            string[] dirs = Directory.GetDirectories("./");
             //在mac下这个root是返回/
         }
     }

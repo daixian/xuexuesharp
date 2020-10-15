@@ -21,20 +21,21 @@ base64_url_unpaddedvariant:
 与相同base64_url，但是'='填充字符是可选的。编码时，不会在结果字符串上附加填充。解码接受填充或未填充的字符串。
 */
 
-std::string Convert::ToBase64String(const unsigned char* inArray, int offset, int length, Base64Options option)
+std::string Convert::ToBase64String(const void* inArray, int offset, int length, Base64Options option)
 {
     //在C#中有Base64FormattingOptions:
     //如果每 76 个字符插入一个分行符，则使用 InsertLineBreaks，如果不插入分行符，则使用 None。
-    const unsigned char* ptr = inArray + offset;
+    unsigned char* ptr = ((unsigned char*)inArray) + offset;
+
     if (option == Base64Options::URL)
         return cppcodec::base64_url::encode<std::string>(ptr, length);
     else
         return cppcodec::base64_rfc4648::encode<std::string>(ptr, length);
 }
 
-std::string Convert::ToBase32String(const unsigned char* inArray, int offset, int length)
+std::string Convert::ToBase32String(const void* inArray, int offset, int length)
 {
-    const unsigned char* ptr = inArray + offset;
+    unsigned char* ptr = ((unsigned char*)inArray) + offset;
     return cppcodec::base32_crockford::encode<std::string>(ptr, length);
 }
 

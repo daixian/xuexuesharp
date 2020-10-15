@@ -5,6 +5,10 @@
 namespace xuexue {
 namespace csharp {
 
+FileInfo::FileInfo()
+{
+}
+
 FileInfo::FileInfo(const std::string& fileName)
 {
     OriginalPath = fileName;

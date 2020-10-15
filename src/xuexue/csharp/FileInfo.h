@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include "FileSystemInfo.h"
-#include "DirectoryInfo.h"
 
 namespace xuexue {
 namespace csharp {
@@ -10,6 +9,8 @@ namespace csharp {
 class FileInfo : FileSystemInfo
 {
   public:
+    //必须要有一个默认构造函数,用来拷贝,否则有些STL模板可能使用不了.
+    FileInfo();
     FileInfo(const std::string& fileName);
     ~FileInfo();
 

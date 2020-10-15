@@ -14,7 +14,7 @@ TEST(Convert, Base64)
     for (size_t count = 0; count < 1024; count++) {
         data.clear();
         for (size_t i = 0; i < count; i++) {
-            data.push_back(i);
+            data.push_back((unsigned char)i);
         }
 
         string base64 = Convert::ToBase64String(data.data(), 0, data.size());
