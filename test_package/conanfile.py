@@ -9,7 +9,9 @@ from conans import ConanFile, CMake, tools
 class xuexuesharpTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
-    default_options = {"poco:enable_data_sqlite": False}
+    default_options = {"poco:enable_data_sqlite": False,
+                       "poco:enable_mongodb": False,
+                       "poco:enable_redis": False}
 
     def requirements(self):
         """作为一个test_package这里需要包含所有的依赖"""

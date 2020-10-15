@@ -82,7 +82,7 @@ TEST(DirectoryInfo, FullName3)
 TEST(DirectoryInfo, Root)
 {
 #if _WIN32
-    DirectoryInfo di("./test/666txt");
+    DirectoryInfo di("D:/test/666txt");
     DirectoryInfo root = di.Root();
     ASSERT_EQ(root.FullName(), "D:\\");
 #else
