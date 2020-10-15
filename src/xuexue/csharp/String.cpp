@@ -13,7 +13,7 @@ typedef rapidjson::GenericStringBuffer<rapidjson::UTF16<>> StringBufferW;
 namespace xuexue {
 namespace csharp {
 
-std::string String::ToUTF8(const std::wstring& ws)
+std::string String::UTF16ToUTF8(const std::wstring& ws)
 {
     using namespace rapidjson;
     StringStreamW source(ws.c_str());
@@ -30,7 +30,7 @@ std::string String::ToUTF8(const std::wstring& ws)
     return std::string();
 }
 
-std::wstring String::UTF8ToWStr(const std::string& s)
+std::wstring String::UTF8ToUTF16(const std::string& s)
 {
     using namespace rapidjson;
     StringStream source(s.c_str());
