@@ -1,4 +1,4 @@
-﻿#include "Directory.h"
+#include "Directory.h"
 #include "Poco/File.h"
 #include "Poco/Path.h"
 
@@ -29,7 +29,8 @@ bool Directory::Exists(const std::string& path)
 
 std::vector<std::string> Directory::GetFiles(const std::string& path)
 {
-    Poco::File dir(Poco::Path(path).makeDirectory().toString());
+    //这里必须要手动转成绝对路径，否则在mac下无法获得文件
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
 
     std::vector<Poco::File> vFiles;
     dir.list(vFiles);
@@ -48,7 +49,8 @@ std::vector<std::string> Directory::GetFiles(const std::string& path)
 
 std::vector<std::string> Directory::GetDirectories(const std::string& path)
 {
-    Poco::File dir(Poco::Path(path).makeDirectory().toString());
+    //这里必须要手动转成绝对路径，否则在mac下无法获得文件
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
 
     std::vector<Poco::File> vFiles;
     dir.list(vFiles);

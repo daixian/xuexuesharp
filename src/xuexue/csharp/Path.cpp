@@ -1,4 +1,4 @@
-﻿#include "Path.h"
+#include "Path.h"
 
 #if defined(_WIN32) || defined(_WIN64)
 #    include <windows.h>
@@ -37,7 +37,32 @@ std::string Path::ModuleDir()
         return moduleDir;
     }
 }
-#else
+#elif __APPLE__
+#    include "TargetConditionals.h"
+#    if TARGET_IPHONE_SIMULATOR
+// iOS Simulator
+
+#    elif TARGET_OS_IPHONE
+// iOS device
+
+#    elif TARGET_OS_MAC
+// Other kinds of Mac OS
+
+std::string Path::ModuleDir()
+{
+    //算了mac下就用这个随便返回一下算了
+    return Poco::Path::current();
+}
+
+#    else
+#        error "Unknown Apple platform"
+#    endif
+
+#elif __ANDROID__
+// android
+
+#elif __linux__
+// linux
 
 std::string Path::ModuleDir()
 {
@@ -56,6 +81,12 @@ std::string Path::ModuleDir()
     }
 }
 
+#elif __unix__ // all unices not caught above
+// Unix
+
+#elif defined(_POSIX_VERSION)
+
+// POSIX
 #endif
 
 std::string Path::DataHome()

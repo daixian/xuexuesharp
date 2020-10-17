@@ -1,4 +1,4 @@
-﻿#include "gtest/gtest.h"
+#include "gtest/gtest.h"
 
 #include "xuexue/csharp/Path.h"
 
@@ -23,6 +23,7 @@ TEST(Path, Combine2_2)
     string p = Path::Combine("1", "2\\");
     ASSERT_EQ(p, "1\\2\\");
 #else
+    string p = Path::Combine("1", "2/");
     ASSERT_EQ(p, "1/2/");
 #endif
 }
@@ -54,6 +55,7 @@ TEST(Path, Combine3_2)
     string p = Path::Combine("1", "2", "3\\");
     ASSERT_EQ(p, "1\\2\\3\\");
 #else
+    string p = Path::Combine("1", "2", "3/");
     ASSERT_EQ(p, "1/2/3/");
 #endif
 }
@@ -64,6 +66,7 @@ TEST(Path, Combine3_3)
     string p = Path::Combine("\\1", "2", "3\\");
     ASSERT_EQ(p, "\\1\\2\\3\\");
 #else
+    string p = Path::Combine("/1", "2", "3/");
     ASSERT_EQ(p, "/1/2/3/");
 #endif
 }
@@ -74,7 +77,7 @@ TEST(Path, Combine4)
 #if defined(_WIN32) || defined(_WIN64)
     ASSERT_EQ(p, "1\\2\\3\\4");
 #else
-    ASSERT_EQ(p, "/1/2/3/4");
+    ASSERT_EQ(p, "1/2/3/4");
 #endif
 }
 
@@ -84,7 +87,7 @@ TEST(Path, CombineVec)
 #if defined(_WIN32) || defined(_WIN64)
     ASSERT_EQ(p, "1\\2\\3\\4");
 #else
-    ASSERT_EQ(p, "/1/2/3/4");
+    ASSERT_EQ(p, "1/2/3/4");
 #endif
 }
 

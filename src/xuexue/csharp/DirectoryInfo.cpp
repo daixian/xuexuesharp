@@ -82,7 +82,6 @@ std::vector<FileInfo> DirectoryInfo::GetFiles()
     Poco::File dir(FullPath);
 
     //这里文件夹如果不存在那么会抛出异常Path not found
-
     //if (!dir.exists()) {
     //    return result;
     //}

@@ -64,7 +64,7 @@ class Path
 
     /**
      * 得到模块目录(dll或者exe所在的文件夹).末尾不带斜杠"D:\\Work\\F3DSys\\F3DSystem".
-     * 这是dx自己加的函数.
+     * 这是dx自己加的函数，这个函数基本上是一个windows下才有的概念.
      *
      * @author daixian
      * @date 2020/10/18
