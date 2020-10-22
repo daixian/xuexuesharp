@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include <string>
 
@@ -10,6 +10,7 @@ namespace csharp {
 class Directory
 {
   public:
+    /** 搜索文件夹的设置 */
     enum class SearchOption
     {
         //
@@ -25,7 +26,7 @@ class Directory
     };
 
     /**
-     * 在指定路径中创建所有目录和子目录，除非它们已经存在。
+     * 在指定路径中创建所有目录和子目录，除非它们已经存在.
      *
      * @author daixian
      * @date 2020/9/26
@@ -37,7 +38,7 @@ class Directory
     static DirectoryInfo createDirectory(const std::string& path);
 
     /**
-     * 删除文件夹
+     * 删除文件夹.
      *
      * @author daixian
      * @date 2020/10/15
@@ -48,7 +49,7 @@ class Directory
     static void Delete(const std::string& path, bool recursive = true);
 
     /**
-     * 文件夹是否存在
+     * 文件夹是否存在.
      *
      * @author daixian
      * @date 2020/10/15
@@ -64,13 +65,13 @@ class Directory
      *
      * @author daixian
      * @date 2020/10/15
-     * 
+     *
      * @returns 应用程序的当前工作目录。
      */
-    static std::string GetCurrentDirectory();
+    static std::string CurrentDirectory();
 
     /**
-     * 返回指定目录中文件的名称（包括其路径）。
+     * 返回指定目录中文件的名称(包括其路径).
      * (只有当前一级目录).
      *
      * @author daixian
@@ -99,7 +100,7 @@ class Directory
     static std::vector<std::string> GetFiles(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
 
     /**
-     * 返回指定目录中文件夹的名称（包括其路径）。
+     * 返回指定目录中文件夹的名称(包括其路径).
      * (只有当前一级目录).
      *
      * @author daixian

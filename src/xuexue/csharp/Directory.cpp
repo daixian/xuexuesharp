@@ -1,4 +1,4 @@
-#include "Directory.h"
+﻿#include "Directory.h"
 #include "Poco/File.h"
 #include "Poco/Path.h"
 #include <regex>
@@ -29,7 +29,7 @@ bool Directory::Exists(const std::string& path)
     return dir.exists();
 }
 
-std::string Directory::GetCurrentDirectory()
+std::string Directory::CurrentDirectory()
 {
     return Poco::Path::current();
 }

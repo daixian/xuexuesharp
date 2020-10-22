@@ -15,7 +15,7 @@ class String
   public:
     /**
      * wstring转到utf8编码的字符串.
-     * 
+     *
      * dx:要注意的是在windows下wchar_t是16位,而linux系统是32位.
      * 因此在linux下将一个utf16编码存在wchar_t数组中时,高位有很多补0.
      *
@@ -30,7 +30,7 @@ class String
 
     /**
      * utf8编码的字符串转到utf16.
-     * 
+     *
      * dx:要注意的是在windows下wchar_t是16位,而linux系统是32位.
      * 因此在linux下将一个utf16编码存在wchar_t数组中时,高位有很多补0.
      *
