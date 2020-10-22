@@ -1,6 +1,6 @@
-﻿#include "gtest/gtest.h"
+#include "gtest/gtest.h"
 
-#include "xuexue/csharp/Directory.h"
+#include "xuexue/csharp/csharp.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -82,4 +82,44 @@ TEST(Directory, GetDirectories_self)
 
     ASSERT_TRUE(files.size() >= 0);
     ASSERT_EQ(files.size(), files2.size());
+}
+
+TEST(Directory, GetFiles_test0)
+{
+    Directory::createDirectory("./1/1/1");
+    File::WriteAllText("./1/1/1/1.txt", "随便写点的什么内容");
+    ASSERT_TRUE(File::Exists("./1/1/1/1.txt"));
+    auto files = Directory::GetFiles("./1", ".*", Directory::SearchOption::TopDirectoryOnly);
+    ASSERT_EQ(files.size(), 0); //无法搜索出这个文件
+    Directory::Delete("./1");
+}
+
+TEST(Directory, GetFiles_test1)
+{
+    Directory::createDirectory("./1/1/1");
+    File::WriteAllText("./1/1/1/1.txt", "随便写点的什么内容");
+    ASSERT_TRUE(File::Exists("./1/1/1/1.txt"));
+    auto files = Directory::GetFiles("./1", ".*", Directory::SearchOption::AllDirectories);
+    ASSERT_EQ(files.size(), 1); //能够搜索出这个文件
+    Directory::Delete("./1");
+}
+
+TEST(Directory, GetDirectories_test0)
+{
+    Directory::createDirectory("./1/1/123");
+    File::WriteAllText("./1/1/123/1.txt", "随便写点的什么内容");
+    ASSERT_TRUE(File::Exists("./1/1/123/1.txt"));
+    auto files = Directory::GetDirectories("./1", "123", Directory::SearchOption::TopDirectoryOnly);
+    ASSERT_EQ(files.size(), 0); //无法搜索出这个文件夹
+    Directory::Delete("./1");
+}
+
+TEST(Directory, GetDirectories_test1)
+{
+    Directory::createDirectory("./1/1/123");
+    File::WriteAllText("./1/1/123/1.txt", "随便写点的什么内容");
+    ASSERT_TRUE(File::Exists("./1/1/123/1.txt"));
+    auto files = Directory::GetDirectories("./1", "123", Directory::SearchOption::AllDirectories);
+    ASSERT_EQ(files.size(), 1); //能够搜索出这个文件夹
+    Directory::Delete("./1");
 }

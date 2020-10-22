@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <vector>
 #include <string>
 
@@ -10,8 +10,7 @@ namespace csharp {
 class Directory
 {
   public:
-    // 目前未使用
-    enum SearchOption
+    enum class SearchOption
     {
         //
         // 摘要:
@@ -54,11 +53,21 @@ class Directory
      * @author daixian
      * @date 2020/10/15
      *
-     * @param  path Full pathname of the file.
+     * @param  path 文件夹路径.
      *
-     * @returns True if it succeeds, false if it fails.
+     * @returns 如果文件夹存在返回true.
      */
     static bool Exists(const std::string& path);
+
+    /**
+     * 获取应用程序的当前工作目录。
+     *
+     * @author daixian
+     * @date 2020/10/15
+     * 
+     * @returns 应用程序的当前工作目录。
+     */
+    static std::string GetCurrentDirectory();
 
     /**
      * 返回指定目录中文件的名称（包括其路径）。
@@ -69,24 +78,25 @@ class Directory
      *
      * @param  path 要搜索的目录的相对或绝对路径,此字符串不区分大小写.
      *
-     * @returns The files.
+     * @returns 这些文件的完整路径.
      */
     static std::vector<std::string> GetFiles(const std::string& path);
 
     /**
      * 返回指定目录中与指定的搜索模式匹配的文件的名称（包含其路径），使用某个值确定是否要搜索子目录。
-     * （这个函数的通配符可能实现不了）
+     * (这个函数的通配符可能实现不了,目前使用的是正则表达式,所有文件的表达式就是".*")
+     * 如果是错误的正则表达式,那么会抛出正则表达式无法解析的异常.
      *
      * @author daixian
      * @date 2020/9/26
      *
      * @param  path          要搜索的目录的相对或绝对路径，此字符串不区分大小写。
-     * @param  searchPattern 要与path中的文件名匹配的搜索字符串。此参数可以包含有效文本路径和通配符（* 和 ?）的组合，但不支持正则表达式.
+     * @param  searchPattern 要与path中的文件名匹配的搜索字符串(我这里是使用正则表达式Search)。注意这里在c#中此参数可以包含有效文本路径和通配符（* 和 ?）的组合，但不支持正则表达式.
      * @param  searchOption  The search option.
      *
-     * @returns The files.
+     * @returns 这些文件的完整路径.
      */
-    //static std::vector<std::string> GetFiles(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
+    static std::vector<std::string> GetFiles(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
 
     /**
      * 返回指定目录中文件夹的名称（包括其路径）。
@@ -100,6 +110,22 @@ class Directory
      * @returns The directories.
      */
     static std::vector<std::string> GetDirectories(const std::string& path);
+
+    /**
+     * 返回与在指定目录中的指定搜索模式匹配的子目录的名称（包括其路径），还可以选择地搜索子目录。
+     * (这个函数的通配符可能实现不了,目前使用的是正则表达式,所有文件的表达式就是".*")
+     * 如果是错误的正则表达式,那么会抛出正则表达式无法解析的异常.
+     *
+     * @author daixian
+     * @date 2020/9/26
+     *
+     * @param  path          要搜索的目录的相对或绝对路径，此字符串不区分大小写。
+     * @param  searchPattern 要与path中的文件名匹配的搜索字符串(我这里是使用正则表达式Search)。注意这里在c#中此参数可以包含有效文本路径和通配符（* 和 ?）的组合，但不支持正则表达式.
+     * @param  searchOption  The search option.
+     *
+     * @returns 这些文件的完整路径.
+     */
+    static std::vector<std::string> GetDirectories(const std::string& path, const std::string& searchPattern, SearchOption searchOption);
 };
 
 } // namespace csharp
