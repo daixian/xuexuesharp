@@ -91,8 +91,11 @@ TEST(Path, CombineVec)
 #endif
 }
 
+#if defined(_WIN32) || defined(_WIN64)
 TEST(Path, ModuleDir)
 {
+
     string p = Path::ModuleDir();
     ASSERT_TRUE(!p.empty());
 }
+#endif
