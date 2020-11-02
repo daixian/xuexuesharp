@@ -28,8 +28,14 @@ void Directory::Delete(const std::string& path, bool recursive)
 bool Directory::Exists(const std::string& path)
 {
     Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
-    if (dir.exists() && dir.isDirectory()) {
-        return true;
+    //如果传入了一些非法的文件名,那么它会异常
+    try {
+        if (dir.exists() && dir.isDirectory()) {
+            return true;
+        }
+    }
+    catch (const std::exception& e) {
+        printf("Directory.Exists():exception = %s \n", e.what());
     }
     return false;
 }

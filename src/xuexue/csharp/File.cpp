@@ -46,9 +46,16 @@ void File::Delete(const std::string& path)
 bool File::Exists(const std::string& path)
 {
     Poco::File file(Poco::Path(path).absolute());
-    if (file.exists() && file.isFile()) {
-        return true;
+    //如果传入了一些非法的文件名,那么它会异常
+    try {
+        if (file.exists() && file.isFile()) {
+            return true;
+        }
     }
+    catch (const std::exception& e) {
+        printf("File.Exists():exception = %s \n", e.what());
+    }
+
     return false;
 }
 

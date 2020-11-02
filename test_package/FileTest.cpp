@@ -13,6 +13,17 @@ TEST(File, Exists)
     ASSERT_FALSE(File::Exists("."));
 }
 
+TEST(File, Exists2)
+{
+    ASSERT_FALSE(File::Exists(":memory:"));
+}
+
+TEST(File, Exists3)
+{
+
+    ASSERT_FALSE(File::Exists("❀❀❀❀"));
+}
+
 TEST(File, WriteAllText)
 {
     string text = "111\r\n222\r\n333\n";
