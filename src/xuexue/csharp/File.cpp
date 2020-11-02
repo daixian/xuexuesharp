@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "Poco/Path.h"
 #include "Poco/File.h"
 #include "stdio.h"
 
@@ -37,15 +38,18 @@ void File::AppendAllText(const std::string& path, const std::string& contents)
 
 void File::Delete(const std::string& path)
 {
-    Poco::File file(path);
-    if (file.exists())
+    Poco::File file(Poco::Path(path).absolute());
+    if (file.exists() && file.isFile()) //要先判断是否文件存在,然后再判断是否是文件,否则io异常
         file.remove();
 }
 
 bool File::Exists(const std::string& path)
 {
-    Poco::File file(path);
-    return file.exists();
+    Poco::File file(Poco::Path(path).absolute());
+    if (file.exists() && file.isFile()) {
+        return true;
+    }
+    return false;
 }
 
 std::vector<char> File::ReadAllBytes(const std::string& path)

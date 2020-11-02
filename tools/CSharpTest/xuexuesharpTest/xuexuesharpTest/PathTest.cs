@@ -18,6 +18,10 @@ namespace xuexuesharpTest
         {
             string p = Path.Combine("1", "2");
             Assert.AreEqual(p, "1\\2");
+
+            Assert.AreEqual(File.Exists("./"), false);
+            Assert.AreEqual(File.Exists("."), false);
+            bool res = File.Exists(".");
         }
     }
 }

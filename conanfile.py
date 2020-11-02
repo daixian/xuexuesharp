@@ -12,7 +12,7 @@ from conans import ConanFile, CMake, tools
 
 class xuexuesharpConan(ConanFile):
     name = "xuexuesharp"
-    version = "0.0.8"
+    version = "0.0.9"
     license = "This project is licensed under GLWTPL"
     author = "daixian<amano_tooko@qq.com>"
     url = "https://github.com/daixian/xuexuesharp"

@@ -40,7 +40,7 @@ class File
     static void Delete(const std::string& path);
 
     /**
-     * 确定指定的文件是否存在。
+     * 确定指定的文件是否存在,如果输入了一个文件夹路径那么也是不存在的.
      *
      * @author daixian
      * @date 2020/9/25

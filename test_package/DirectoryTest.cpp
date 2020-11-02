@@ -89,6 +89,7 @@ TEST(Directory, GetFiles_test0)
     Directory::createDirectory("./1/1/1");
     File::WriteAllText("./1/1/1/1.txt", "随便写点的什么内容");
     ASSERT_TRUE(File::Exists("./1/1/1/1.txt"));
+    ASSERT_FALSE(Directory::Exists("./1/1/1/1.txt")); //它作为文件夹是不存在的
     auto files = Directory::GetFiles("./1", ".*", Directory::SearchOption::TopDirectoryOnly);
     ASSERT_EQ(files.size(), 0); //无法搜索出这个文件
     Directory::Delete("./1");

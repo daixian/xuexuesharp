@@ -12,21 +12,26 @@ namespace csharp {
 
 DirectoryInfo Directory::createDirectory(const std::string& path)
 {
-    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory());
     dir.createDirectories();
     return DirectoryInfo(path);
 }
 
 void Directory::Delete(const std::string& path, bool recursive)
 {
-    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
-    dir.remove(recursive);
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory());
+    if (dir.exists() && dir.isDirectory()) {
+        dir.remove(recursive);
+    }
 }
 
 bool Directory::Exists(const std::string& path)
 {
     Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
-    return dir.exists();
+    if (dir.exists() && dir.isDirectory()) {
+        return true;
+    }
+    return false;
 }
 
 std::string Directory::CurrentDirectory()
@@ -38,7 +43,7 @@ std::vector<std::string> Directory::GetFiles(const std::string& path)
 {
     std::vector<std::string> result;
     //这里必须要手动转成绝对路径，否则在mac下无法获得文件
-    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory());
 
     std::vector<Poco::File> vFiles;
     dir.list(vFiles);
@@ -58,7 +63,7 @@ std::vector<std::string> Directory::GetDirectories(const std::string& path)
 {
     std::vector<std::string> result;
     //这里必须要手动转成绝对路径，否则在mac下无法获得文件
-    Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
+    Poco::File dir(Poco::Path(path).absolute().makeDirectory());
 
     std::vector<Poco::File> vFiles;
     dir.list(vFiles);
@@ -81,7 +86,7 @@ std::vector<std::string> Directory::GetFiles(const std::string& path, const std:
     if (searchOption == SearchOption::TopDirectoryOnly) {
         //如果只搜索顶层
         //这里必须要手动转成绝对路径，否则在mac下无法获得文件
-        Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
+        Poco::File dir(Poco::Path(path).absolute().makeDirectory());
         std::vector<Poco::File> vFiles;
         dir.list(vFiles);
 
@@ -146,7 +151,7 @@ std::vector<std::string> Directory::GetDirectories(const std::string& path, cons
     if (searchOption == SearchOption::TopDirectoryOnly) {
         //如果只搜索顶层
         //这里必须要手动转成绝对路径，否则在mac下无法获得文件
-        Poco::File dir(Poco::Path(path).absolute().makeDirectory().toString());
+        Poco::File dir(Poco::Path(path).absolute().makeDirectory());
         std::vector<Poco::File> vFiles;
         dir.list(vFiles);
 
