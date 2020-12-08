@@ -39,6 +39,26 @@ TEST(Path, Combine2_3)
 #endif
 }
 
+TEST(Path, Combine2_4)
+{
+    string p = Path::Combine("1", "/2/3");
+#if defined(_WIN32) || defined(_WIN64)
+    ASSERT_EQ(p, "\\2\\3");
+#else
+    ASSERT_EQ(p, "/2/3");
+#endif
+}
+
+TEST(Path, Combine2_6)
+{
+    string p = Path::Combine("1", "2/3/");
+#if defined(_WIN32) || defined(_WIN64)
+    ASSERT_EQ(p, "1\\2\\3\\");
+#else
+    ASSERT_EQ(p, "1/2/3/");
+#endif
+}
+
 TEST(Path, Combine3)
 {
     string p = Path::Combine("1", "2", "3");

@@ -29,3 +29,70 @@ TEST(String, GBKToUTF8)
     ws2 = String::UTF8ToUTF16(utf8_2);
     ASSERT_TRUE(ws == ws2);
 }
+
+TEST(String, SubString)
+{
+    ASSERT_EQ(String::Substring("123456", 2), "3456");
+    ASSERT_EQ(String::Substring(L"123456", 2), L"3456");
+}
+
+TEST(String, SubString2)
+{
+    ASSERT_EQ(String::Substring("123456", 2, 1), "3");
+    ASSERT_EQ(String::Substring(L"123456", 2, 1), L"3");
+}
+
+TEST(String, IndexOf)
+{
+    ASSERT_EQ(String::IndexOf("123456", '2'), 1);
+    ASSERT_EQ(String::IndexOf("123456", '3'), 2);
+}
+
+TEST(String, IndexOfAny)
+{
+    ASSERT_EQ(String::IndexOfAny("123456", {'2', '3'}), 1);
+    ASSERT_EQ(String::IndexOfAny("123456", {'3'}), 2);
+}
+
+TEST(String, LastIndexOf)
+{
+    ASSERT_EQ(String::LastIndexOf("123456", '2'), 1);
+    ASSERT_EQ(String::LastIndexOf("123456", '3'), 2);
+}
+
+TEST(String, LastIndexOfAny)
+{
+    ASSERT_EQ(String::LastIndexOfAny("123456", {'2', '3'}), 2);
+    ASSERT_EQ(String::LastIndexOfAny("123456", {'3'}), 2);
+}
+
+TEST(String, Trim)
+{
+    ASSERT_EQ(String::Trim("/123456\\", {'/', '\\'}), "123456");
+}
+
+TEST(String, TrimEnd)
+{
+    ASSERT_EQ(String::TrimEnd("/123456\\/", {'/', '\\'}), "/123456");
+}
+
+TEST(String, TrimStart)
+{
+    ASSERT_EQ(String::TrimStart("/123456\\", {'/', '\\'}), "123456\\");
+}
+
+TEST(String, ContainsStrTrue)
+{
+    ASSERT_EQ(String::Contains("/123456\\", "/123456\\"), true);
+    ASSERT_EQ(String::Contains("/123456\\", "/123"), true);
+    ASSERT_EQ(String::Contains("/123456\\", "23"), true);
+    ASSERT_EQ(String::Contains("/123456\\", "6\\"), true);
+}
+
+TEST(String, ContainsStrFalse)
+{
+    ASSERT_EQ(String::Contains("/123456\\", "/123456\\312"), false);
+    ASSERT_EQ(String::Contains("/123456\\", "\\123"), false);
+    ASSERT_EQ(String::Contains("/123456\\", "\\23"), false);
+    ASSERT_EQ(String::Contains("/123456\\", ""), false);
+}

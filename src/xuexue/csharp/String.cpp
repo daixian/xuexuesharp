@@ -7,6 +7,8 @@
 #include <Poco/UTF8Encoding.h>
 #include <Poco/Windows936Encoding.h>
 
+#include <Poco/String.h>
+
 typedef rapidjson::GenericStringStream<rapidjson::UTF16<>> StringStreamW;
 typedef rapidjson::GenericStringBuffer<rapidjson::UTF16<>> StringBufferW;
 
@@ -65,6 +67,78 @@ std::string String::GBKToUTF8(const std::string& s_gbk)
     std::string dst;
     converter.convert(s_gbk, dst);
     return dst;
+}
+
+bool String::StartsWith(const std::string& str, const std::string& value)
+{
+    return Poco::startsWith(str, value);
+}
+bool String::StartsWith(const std::wstring& str, const std::wstring& value)
+{
+    return Poco::startsWith(str, value);
+}
+
+std::string String::Substring(const std::string& str, int startIndex)
+{
+    if (startIndex < 0) {
+        throw std::invalid_argument("String::Substring():tartIndex < 0 Check fail!");
+    }
+    std::string sub(str, startIndex);
+    return sub;
+}
+std::wstring String::Substring(const std::wstring& str, int startIndex)
+{
+    if (startIndex < 0) {
+        throw std::invalid_argument("String::Substring():tartIndex < 0 Check fail!");
+    }
+    std::wstring sub(str, startIndex);
+    return sub;
+}
+
+std::string String::Substring(const std::string& str, int startIndex, int length)
+{
+    int endIndex = startIndex + length;
+    if (startIndex < 0 || endIndex > str.size()) {
+        throw std::invalid_argument("String::Substring():tartIndex < 0 || endIndex >= str.size() Check fail!");
+    }
+    std::string sub(str, startIndex, length);
+    return sub;
+}
+std::wstring String::Substring(const std::wstring& str, int startIndex, int length)
+{
+    int endIndex = startIndex + length;
+    if (startIndex < 0 || endIndex > str.size()) {
+        throw std::invalid_argument("String::Substring():tartIndex < 0 || endIndex >= str.size() Check fail!");
+    }
+    std::wstring sub(str, startIndex, length);
+    return sub;
+}
+
+std::string String::ToLower(const std::string& str)
+{
+    return Poco::toLower(str);
+}
+std::wstring String::ToLower(const std::wstring& str)
+{
+    return Poco::toLower(str);
+}
+
+std::string String::ToUpper(const std::string& str)
+{
+    return Poco::toUpper(str);
+}
+std::wstring String::ToUpper(const std::wstring& str)
+{
+    return Poco::toUpper(str);
+}
+
+std::string String::Trim(const std::string& str)
+{
+    return Poco::trim(str);
+}
+std::wstring String::Trim(const std::wstring& str)
+{
+    return Poco::trim(str);
 }
 
 } // namespace csharp

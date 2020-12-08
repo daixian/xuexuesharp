@@ -1,11 +1,15 @@
 ﻿#pragma once
+
+#include <vector>
 #include <string>
+#include <string.h>
+#include <exception>
 
 namespace xuexue {
 namespace csharp {
 
 /**
- * 这些是dx自己定的一些方法,不对应C#.
+ * 包含了某些dx自己定的一些方法,不对应C#.
  *
  * @author daixian
  * @date 2020/9/25
@@ -66,6 +70,624 @@ class String
      * @returns utf8编码的字符串.
      */
     static std::string GBKToUTF8(const std::string& gbk);
+
+    /**
+     * 是否包含这个字符。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str   The string.
+     * @param  value The value.
+     *
+     * @returns True if the object is in this collection, false if not.
+     */
+    inline static bool Contains(const std::vector<char>& value, char ch)
+    {
+        for (size_t i = 0; i < value.size(); i++) {
+            if (value[i] == ch) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 是否包含这个字符。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str   The string.
+     * @param  value The value.
+     *
+     * @returns True if the object is in this collection, false if not.
+     */
+    inline static bool Contains(const std::vector<wchar_t>& value, wchar_t ch)
+    {
+        for (size_t i = 0; i < value.size(); i++) {
+            if (value[i] == ch) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * str中是否包含value这个字符串.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str   The string.
+     * @param  value The value.
+     *
+     * @returns True if the object is in this collection, false if not.
+     */
+    inline static bool Contains(const std::string& str, const std::string& value)
+    {
+        if (value.empty() || str.empty()) {
+            return false;
+        }
+        if (str.size() < value.size()) { //如果字符串比value更短那么肯定包含不了
+            return false;
+        }
+        for (int i = 0; i <= str.size() - value.size(); i++) {
+            for (int j = 0; j < value.size(); j++) {
+                int start = i + j;
+                if (str[start] != value[j]) {
+                    break;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * str中是否包含value这个字符串.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str   The string.
+     * @param  value The value.
+     *
+     * @returns True if the object is in this collection, false if not.
+     */
+    inline static bool Contains(const std::wstring& str, const std::wstring& value)
+    {
+        if (value.empty() || str.empty()) {
+            return false;
+        }
+        if (str.size() < value.size()) { //如果字符串比value更短那么肯定包含不了
+            return false;
+        }
+        for (int i = 0; i <= str.size() - value.size(); i++) {
+            for (int j = 0; j < value.size(); j++) {
+                int start = i + j;
+                if (str[start] != value[j]) {
+                    break;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 报告在此实例中首次出现的指定字符串的从零开始的索引。搜索从指定的字符位置开始。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns 从零开始value的当前实例的索引位置（如果找到该字符串），否则为-1。如果value为空，则返回值为startIndex.
+     */
+    inline static int IndexOf(const std::string& str, char value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (size_t i = startIndex; i < str.size(); i++) {
+            if (str[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 报告在此实例中首次出现的指定字符串的从零开始的索引。搜索从指定的字符位置开始。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns 从零开始value的当前实例的索引位置（如果找到该字符串），否则为-1。如果value为空，则返回值为startIndex.
+     */
+    inline static int IndexOf(const std::wstring& str, wchar_t value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (size_t i = startIndex; i < str.size(); i++) {
+            if (str[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 报告指定实例的字符数组中任何字符在此实例中首次出现的索引。如果在此实例中找不到数组中的字符，则该方法返回-1。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns The zero-based index of the found any, or -1 if no match was found.
+     */
+    inline static int IndexOfAny(const std::string& str, const std::vector<char>& value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (int i = startIndex; i < str.size(); i++) {
+            for (int j = 0; j < value.size(); j++) {
+                if (str[i] == value[j]) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 报告指定实例的字符数组中任何字符在此实例中首次出现的索引。如果在此实例中找不到数组中的字符，则该方法返回-1。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns The zero-based index of the found any, or -1 if no match was found.
+     */
+    inline static int IndexOfAny(const std::wstring& str, const std::vector<wchar_t>& value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (int i = startIndex; i < str.size(); i++) {
+            for (int j = 0; j < value.size(); j++) {
+                if (str[i] == value[j]) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 报告此实例中最后一次出现的指定字符的从零开始的索引位置。搜索从指定的字符位置开始，并朝字符串的开头向后进行指定数量的字符位置。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns An int.
+     */
+    inline static int LastIndexOf(const std::string& str, char value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (int i = str.size() - 1; i >= startIndex; i--) {
+            if (str[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Searches for the last match
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns An int.
+     */
+    inline static int LastIndexOf(const std::wstring& str, wchar_t value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (int i = str.size() - 1; i >= startIndex; i--) {
+            if (str[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 报告此实例中最后一次出现的任意指定字符的从零开始的索引位置。搜索从指定的字符位置开始，并朝字符串的开头向后进行指定数量的字符位置。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns The zero-based index of the found any, or -1 if no match was found.
+     */
+    inline static int LastIndexOfAny(const std::string& str, const std::vector<char>& value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (int i = str.size() - 1; i >= startIndex; i--) {
+            for (int j = 0; j < value.size(); j++) {
+                if (str[i] == value[j]) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 报告此实例中最后一次出现的任意指定字符的从零开始的索引位置。搜索从指定的字符位置开始，并朝字符串的开头向后进行指定数量的字符位置。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  value      The value.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns The zero-based index of the found any, or -1 if no match was found.
+     */
+    inline static int LastIndexOfAny(const std::wstring& str, const std::vector<wchar_t>& value, int startIndex = 0)
+    {
+        if (str.empty()) {
+            return startIndex;
+        }
+        for (int i = str.size() - 1; i >= startIndex; i--) {
+            for (int j = 0; j < value.size(); j++) {
+                if (str[i] == value[j]) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 确定此字符串实例的开头是否与指定的字符串匹配。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str   The string.
+     * @param  value The value.
+     *
+     * @returns True if it succeeds, false if it fails.
+     */
+    static bool StartsWith(const std::string& str, const std::string& value);
+
+    /**
+     * 确定此字符串实例的开头是否与指定的字符串匹配。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str   The string.
+     * @param  value The value.
+     *
+     * @returns True if it succeeds, false if it fails.
+     */
+    static bool StartsWith(const std::wstring& str, const std::wstring& value);
+
+    /**
+     * 从此实例检索子字符串。子字符串从指定的字符位置开始，一直到字符串的末尾。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  startIndex The start index.
+     *
+     * @returns 子字符串.
+     */
+    static std::string Substring(const std::string& str, int startIndex);
+
+    /**
+     * 从此实例检索子字符串。子字符串从指定的字符位置开始，一直到字符串的末尾。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  startIndex The start index.
+     *
+     * @returns 子字符串.
+     */
+    static std::wstring Substring(const std::wstring& str, int startIndex);
+
+    /**
+     * 从此实例检索子字符串。子字符串从指定的字符位置开始，并具有指定的长度。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  startIndex The start index.
+     * @param  length     The length.
+     *
+     * @returns 子字符串.
+     */
+    static std::string Substring(const std::string& str, int startIndex, int length);
+
+    /**
+     * 从此实例检索子字符串。子字符串从指定的字符位置开始，并具有指定的长度。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str        The string.
+     * @param  startIndex The start index.
+     * @param  length     The length.
+     *
+     * @returns 子字符串.
+     */
+    static std::wstring Substring(const std::wstring& str, int startIndex, int length);
+
+    /**
+     * 转成小写.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str The string.
+     *
+     * @returns 结果字符串.
+     */
+    static std::string ToLower(const std::string& str);
+
+    /**
+     * 转成小写.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str The string.
+     *
+     * @returns 结果字符串.
+     */
+    static std::wstring ToLower(const std::wstring& str);
+
+    /**
+     * 转成大写.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str The string.
+     *
+     * @returns 结果字符串.
+     */
+    static std::string ToUpper(const std::string& str);
+
+    /**
+     * 转成大写.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str The string.
+     *
+     * @returns 结果字符串.
+     */
+    static std::wstring ToUpper(const std::wstring& str);
+
+    /**
+    * Removes all leading and trailing white-space characters from the current string.
+    * 从当前字符串中删除数组中白空格字符的所有前导和尾随出现。
+    *
+    * @author daixian
+    * @date 2020/12/8
+    *
+    * @param  str The string.
+    *
+    * @returns 结果字符串.
+    */
+    static std::string Trim(const std::string& str);
+
+    /**
+    * Removes all leading and trailing white-space characters from the current string.
+    * 从当前字符串中删除数组中白空格字符的所有前导和尾随出现。
+    *
+    * @author daixian
+    * @date 2020/12/8
+    *
+    * @param  str The string.
+    *
+    * @returns 结果字符串.
+    */
+    static std::wstring Trim(const std::wstring& str);
+
+    /**
+     * Removes all leading and trailing occurrences of a set of characters specified in an array
+     * from the current string. 从当前字符串中删除数组中指定的一组字符的所有前导和尾随出现。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  trimChars The trim characters.
+     *
+     * @returns 结果字符串.
+     */
+    inline static std::string Trim(const std::string& str, const std::vector<char>& trimChars)
+    {
+        int first = 0;
+        int last = int(str.size()) - 1;
+
+        while (first <= last && String::Contains(trimChars, str[first]))
+            ++first;
+        while (last >= first && String::Contains(trimChars, str[last]))
+            --last;
+
+        int len = last - first + 1;
+        return std::string(str, first, len);
+    }
+
+    /**
+     * Removes all leading and trailing occurrences of a set of characters specified in an array
+     * from the current string. 从当前字符串中删除数组中指定的一组字符的所有前导和尾随出现。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  trimChars The trim characters.
+     *
+     * @returns 结果字符串.
+     */
+    inline static std::wstring Trim(const std::wstring& str, const std::vector<wchar_t>& trimChars)
+    {
+        int first = 0;
+        int last = int(str.size()) - 1;
+
+        while (first <= last && String::Contains(trimChars, str[first]))
+            ++first;
+        while (last >= first && String::Contains(trimChars, str[last]))
+            --last;
+
+        int len = last - first + 1;
+        return std::wstring(str, first, len);
+    }
+
+    /**
+     * Removes all the trailing occurrences of a set of characters specified in an array from the
+     * current string.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  trimChars The trim characters.
+     *
+     * @returns 结果字符串.
+     */
+    inline static std::string TrimEnd(const std::string& str, const std::vector<char>& trimChars)
+    {
+        int first = 0;
+        int last = int(str.size()) - 1;
+
+        while (last >= first && String::Contains(trimChars, str[last]))
+            --last;
+
+        int len = last - first + 1;
+        return std::string(str, first, len);
+    }
+
+    /**
+     * Removes all the trailing occurrences of a set of characters specified in an array from the
+     * current string.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  trimChars The trim characters.
+     *
+     * @returns 结果字符串.
+     */
+    inline static std::wstring TrimEnd(const std::wstring& str, const std::vector<wchar_t>& trimChars)
+    {
+        int first = 0;
+        int last = int(str.size()) - 1;
+
+        while (last >= first && String::Contains(trimChars, str[last]))
+            --last;
+
+        int len = last - first + 1;
+        return std::wstring(str, first, len);
+    }
+
+    /**
+     * Removes all the leading occurrences of a set of characters specified in an array from the
+     * current string.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  trimChars The trim characters.
+     *
+     * @returns 结果字符串.
+     */
+    inline static std::string TrimStart(const std::string& str, const std::vector<char>& trimChars)
+    {
+        int first = 0;
+        int last = int(str.size()) - 1;
+
+        while (first <= last && String::Contains(trimChars, str[first]))
+            ++first;
+
+        int len = last - first + 1;
+        return std::string(str, first, len);
+    }
+
+    /**
+     * Removes all the leading occurrences of a set of characters specified in an array from the
+     * current string.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  trimChars The trim characters.
+     *
+     * @returns 结果字符串.
+     */
+    inline static std::wstring TrimStart(const std::wstring& str, const std::vector<wchar_t>& trimChars)
+    {
+        int first = 0;
+        int last = int(str.size()) - 1;
+
+        while (first <= last && String::Contains(trimChars, str[first]))
+            ++first;
+
+        int len = last - first + 1;
+        return std::wstring(str, first, len);
+    }
+
+    static std::vector<std::string> Split(std::vector<char> separator)
+    {
+    }
 };
 
 } // namespace csharp
