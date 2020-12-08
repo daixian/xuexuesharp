@@ -8,6 +8,7 @@
 #include <Poco/Windows936Encoding.h>
 
 #include <Poco/String.h>
+#include <Poco/StringTokenizer.h>
 
 typedef rapidjson::GenericStringStream<rapidjson::UTF16<>> StringStreamW;
 typedef rapidjson::GenericStringBuffer<rapidjson::UTF16<>> StringBufferW;
@@ -139,6 +140,22 @@ std::string String::Trim(const std::string& str)
 std::wstring String::Trim(const std::wstring& str)
 {
     return Poco::trim(str);
+}
+
+std::vector<std::string> String::Split(const std::string& str, std::vector<char> separator, int opt)
+{
+    std::string splitsArg; //合并多个分隔符参数
+    for (size_t i = 0; i < separator.size(); i++) {
+        splitsArg.push_back(separator[i]);
+    }
+
+    std::vector<std::string> result;
+    // 这里带有两个参数 Poco::StringTokenizer::TOK_TRIM | Poco::StringTokenizer::TOK_IGNORE_EMPTY
+    Poco::StringTokenizer st(str, splitsArg, opt);
+    for (auto itr = st.begin(); itr != st.end(); itr++) {
+        result.push_back(*itr);
+    }
+    return result;
 }
 
 } // namespace csharp

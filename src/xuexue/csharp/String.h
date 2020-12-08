@@ -132,10 +132,9 @@ class String
         if (str.size() < value.size()) { //如果字符串比value更短那么肯定包含不了
             return false;
         }
-        for (int i = 0; i <= str.size() - value.size(); i++) {
-            for (int j = 0; j < value.size(); j++) {
-                int start = i + j;
-                if (str[start] != value[j]) {
+        for (size_t i = 0; i <= str.size() - value.size(); i++) {
+            for (size_t j = 0; j < value.size(); j++) {
+                if (str[i + j] != value[j]) {
                     break;
                 }
                 return true;
@@ -163,10 +162,9 @@ class String
         if (str.size() < value.size()) { //如果字符串比value更短那么肯定包含不了
             return false;
         }
-        for (int i = 0; i <= str.size() - value.size(); i++) {
-            for (int j = 0; j < value.size(); j++) {
-                int start = i + j;
-                if (str[start] != value[j]) {
+        for (size_t i = 0; i <= str.size() - value.size(); i++) {
+            for (size_t j = 0; j < value.size(); j++) {
+                if (str[i + j] != value[j]) {
                     break;
                 }
                 return true;
@@ -187,14 +185,14 @@ class String
      *
      * @returns 从零开始value的当前实例的索引位置（如果找到该字符串），否则为-1。如果value为空，则返回值为startIndex.
      */
-    inline static int IndexOf(const std::string& str, char value, int startIndex = 0)
+    inline static int IndexOf(const std::string& str, char value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
         for (size_t i = startIndex; i < str.size(); i++) {
             if (str[i] == value) {
-                return i;
+                return static_cast<int>(i);
             }
         }
         return -1;
@@ -212,14 +210,14 @@ class String
      *
      * @returns 从零开始value的当前实例的索引位置（如果找到该字符串），否则为-1。如果value为空，则返回值为startIndex.
      */
-    inline static int IndexOf(const std::wstring& str, wchar_t value, int startIndex = 0)
+    inline static int IndexOf(const std::wstring& str, wchar_t value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
         for (size_t i = startIndex; i < str.size(); i++) {
             if (str[i] == value) {
-                return i;
+                return static_cast<int>(i);
             }
         }
         return -1;
@@ -237,15 +235,15 @@ class String
      *
      * @returns The zero-based index of the found any, or -1 if no match was found.
      */
-    inline static int IndexOfAny(const std::string& str, const std::vector<char>& value, int startIndex = 0)
+    inline static int IndexOfAny(const std::string& str, const std::vector<char>& value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
-        for (int i = startIndex; i < str.size(); i++) {
-            for (int j = 0; j < value.size(); j++) {
+        for (size_t i = startIndex; i < str.size(); i++) {
+            for (size_t j = 0; j < value.size(); j++) {
                 if (str[i] == value[j]) {
-                    return i;
+                    return static_cast<int>(i);
                 }
             }
         }
@@ -264,15 +262,15 @@ class String
      *
      * @returns The zero-based index of the found any, or -1 if no match was found.
      */
-    inline static int IndexOfAny(const std::wstring& str, const std::vector<wchar_t>& value, int startIndex = 0)
+    inline static int IndexOfAny(const std::wstring& str, const std::vector<wchar_t>& value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
-        for (int i = startIndex; i < str.size(); i++) {
-            for (int j = 0; j < value.size(); j++) {
+        for (size_t i = startIndex; i < str.size(); i++) {
+            for (size_t j = 0; j < value.size(); j++) {
                 if (str[i] == value[j]) {
-                    return i;
+                    return static_cast<int>(i);
                 }
             }
         }
@@ -291,14 +289,14 @@ class String
      *
      * @returns An int.
      */
-    inline static int LastIndexOf(const std::string& str, char value, int startIndex = 0)
+    inline static int LastIndexOf(const std::string& str, char value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
-        for (int i = str.size() - 1; i >= startIndex; i--) {
+        for (size_t i = str.size() - 1; i >= startIndex; i--) {
             if (str[i] == value) {
-                return i;
+                return static_cast<int>(i);
             }
         }
         return -1;
@@ -316,14 +314,14 @@ class String
      *
      * @returns An int.
      */
-    inline static int LastIndexOf(const std::wstring& str, wchar_t value, int startIndex = 0)
+    inline static int LastIndexOf(const std::wstring& str, wchar_t value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
-        for (int i = str.size() - 1; i >= startIndex; i--) {
+        for (size_t i = str.size() - 1; i >= startIndex; i--) {
             if (str[i] == value) {
-                return i;
+                return static_cast<int>(i);
             }
         }
         return -1;
@@ -341,15 +339,15 @@ class String
      *
      * @returns The zero-based index of the found any, or -1 if no match was found.
      */
-    inline static int LastIndexOfAny(const std::string& str, const std::vector<char>& value, int startIndex = 0)
+    inline static int LastIndexOfAny(const std::string& str, const std::vector<char>& value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
-        for (int i = str.size() - 1; i >= startIndex; i--) {
-            for (int j = 0; j < value.size(); j++) {
+        for (size_t i = str.size() - 1; i >= startIndex; i--) {
+            for (size_t j = 0; j < value.size(); j++) {
                 if (str[i] == value[j]) {
-                    return i;
+                    return static_cast<int>(i);
                 }
             }
         }
@@ -368,15 +366,15 @@ class String
      *
      * @returns The zero-based index of the found any, or -1 if no match was found.
      */
-    inline static int LastIndexOfAny(const std::wstring& str, const std::vector<wchar_t>& value, int startIndex = 0)
+    inline static int LastIndexOfAny(const std::wstring& str, const std::vector<wchar_t>& value, size_t startIndex = 0)
     {
         if (str.empty()) {
-            return startIndex;
+            return static_cast<int>(startIndex);
         }
-        for (int i = str.size() - 1; i >= startIndex; i--) {
-            for (int j = 0; j < value.size(); j++) {
+        for (size_t i = str.size() - 1; i >= startIndex; i--) {
+            for (size_t j = 0; j < value.size(); j++) {
                 if (str[i] == value[j]) {
-                    return i;
+                    return static_cast<int>(i);
                 }
             }
         }
@@ -685,9 +683,19 @@ class String
         return std::wstring(str, first, len);
     }
 
-    static std::vector<std::string> Split(std::vector<char> separator)
-    {
-    }
+    /**
+     * 分离字符串,默认带有参数Poco::StringTokenizer::TOK_TRIM | Poco::StringTokenizer::TOK_IGNORE_EMPTY.
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str       The string.
+     * @param  separator 分隔符参数.
+     * @param  opt       (Optional) 默认参数是 TOK_TRIM|TOK_IGNORE_EMPTY.
+     *
+     * @returns 拆分的结果.
+     */
+    static std::vector<std::string> Split(const std::string& str, std::vector<char> separator, int opt = 1 | 2);
 };
 
 } // namespace csharp

@@ -96,3 +96,9 @@ TEST(String, ContainsStrFalse)
     ASSERT_EQ(String::Contains("/123456\\", "\\23"), false);
     ASSERT_EQ(String::Contains("/123456\\", ""), false);
 }
+
+TEST(String, Split)
+{
+    auto res = String::Split("/123456\\312321/321", {'\\', '/'});
+    ASSERT_EQ(res.size(), 3);
+}
