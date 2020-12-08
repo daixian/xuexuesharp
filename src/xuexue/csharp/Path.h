@@ -64,7 +64,7 @@ class Path
 
     /**
      * 得到模块目录(dll或者exe所在的文件夹).末尾不带斜杠"D:\\Work\\F3DSys\\F3DSystem".
-     * 这是dx自己加的函数，这个函数基本上是一个windows下才有的概念.
+     * 这是dx自己加的函数，这个函数基本上是一个windows下才有意义的概念.
      *
      * @author daixian
      * @date 2020/10/18
@@ -114,6 +114,26 @@ class Path
      * @returns A std::string.
      */
     static std::string Temp();
+
+    /**
+     * 是否是绝对路径.注意/123这样的路径不认为是windows下的绝对路径。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @returns 是绝对路径返回True.
+     */
+    static bool IsPathFullyQualified(const std::string& path);
+
+    /**
+     * 是否是绝对路径.注意/123这样的路径在windows下也会认为是绝对路径。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @returns 是绝对路径返回True.
+     */
+    static bool IsPathRooted(const std::string& path);
 };
 
 } // namespace csharp

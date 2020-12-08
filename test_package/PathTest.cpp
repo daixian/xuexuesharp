@@ -94,8 +94,29 @@ TEST(Path, CombineVec)
 #if defined(_WIN32) || defined(_WIN64)
 TEST(Path, ModuleDir)
 {
-
     string p = Path::ModuleDir();
     ASSERT_TRUE(!p.empty());
 }
 #endif
+
+TEST(Path, isRelative)
+{
+    ASSERT_EQ(Path::IsPathFullyQualified("1123"), false);
+    ASSERT_EQ(Path::IsPathFullyQualified("/1123"), false); //目前这个是windows下的结果为false
+
+    ASSERT_EQ(Path::IsPathRooted("1123"), false);
+    ASSERT_EQ(Path::IsPathRooted("/1123"), true);
+
+#if defined(_WIN32) || defined(_WIN64)
+
+    ASSERT_EQ(Path::IsPathFullyQualified("\\"), false);
+    ASSERT_EQ(Path::IsPathFullyQualified("C:/1123"), true);
+    ASSERT_EQ(Path::IsPathFullyQualified("C:\\1123"), true);
+    ASSERT_EQ(Path::IsPathFullyQualified("C:/"), true);
+    ASSERT_EQ(Path::IsPathFullyQualified("C:\\"), true);
+    ASSERT_EQ(Path::IsPathFullyQualified("G:/"), true);
+
+    ASSERT_EQ(Path::IsPathRooted("\\1123"), true);
+    ASSERT_EQ(Path::IsPathRooted("C:/1123"), true);
+#endif
+}

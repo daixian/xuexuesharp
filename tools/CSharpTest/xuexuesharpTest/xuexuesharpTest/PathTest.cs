@@ -23,5 +23,22 @@ namespace xuexuesharpTest
             Assert.AreEqual(File.Exists("."), false);
             bool res = File.Exists(".");
         }
+
+        [Test]
+        public void Test2()
+        {
+            Assert.AreEqual(Path.IsPathFullyQualified("1123"), false);
+            Assert.AreEqual(Path.IsPathFullyQualified("/1123"), false);
+            Assert.AreEqual(Path.IsPathFullyQualified("\\"), false);
+            Assert.AreEqual(Path.IsPathFullyQualified("C:/1123"), true);
+            Assert.AreEqual(Path.IsPathFullyQualified("C:/"), true);
+            Assert.AreEqual(Path.IsPathFullyQualified("G:/"), true);
+
+            Assert.AreEqual(Path.IsPathRooted("1123"), false);
+            Assert.AreEqual(Path.IsPathRooted("/1123"), true);
+            Assert.AreEqual(Path.IsPathRooted("\\1123"), true);
+            Assert.AreEqual(Path.IsPathRooted("C:/1123"), true);
+
+        }
     }
 }

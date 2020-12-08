@@ -144,5 +144,29 @@ std::string Path::Combine(const std::vector<std::string>& paths)
     return p.toString();
 }
 
+bool Path::IsPathFullyQualified(const std::string& path)
+{
+    Poco::Path p(path);
+#if WIN32
+    //在windows下如果是相对地址,或者是没有盘符
+    if (p.isRelative() || p.getDevice().empty()) {
+        return false;
+    }
+#else
+    if (p.isRelative()) {
+        return false;
+    }
+#endif
+    else {
+        return true;
+    }
+}
+
+bool Path::IsPathRooted(const std::string& path)
+{
+    Poco::Path p(path);
+    return p.isAbsolute();
+}
+
 } // namespace csharp
 } // namespace xuexue
