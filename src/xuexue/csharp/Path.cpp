@@ -168,5 +168,29 @@ bool Path::IsPathRooted(const std::string& path)
     return p.isAbsolute();
 }
 
+std::string Path::GetPathRoot(const std::string& path)
+{
+    if (path.empty()) {
+        return "";
+    }
+
+    //如果开头是绝对符号那么按照.net的api返回这个
+    char c0 = path.at(0);
+    if (c0 == '\\' || c0 == '/') {
+        std::string s;
+        s.push_back(c0);
+        return s;
+    }
+    Poco::Path p(path);
+    // windows下这函数返回的是C
+#if WIN32
+    if (!p.getDevice().empty())
+        return p.getDevice() + ":\\";
+    return "";
+#else
+    return p.getDevice();
+#endif
+}
+
 } // namespace csharp
 } // namespace xuexue

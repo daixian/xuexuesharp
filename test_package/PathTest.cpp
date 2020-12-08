@@ -120,3 +120,13 @@ TEST(Path, isRelative)
     ASSERT_EQ(Path::IsPathRooted("C:/1123"), true);
 #endif
 }
+
+TEST(Path, GetPathRoot)
+{
+    ASSERT_EQ(Path::GetPathRoot("myfile.ext"), "");
+    ASSERT_EQ(Path::GetPathRoot("/mydir/"), "/");
+#if defined(_WIN32) || defined(_WIN64)
+    ASSERT_EQ(Path::GetPathRoot("\\mydir\\"), "\\");
+    ASSERT_EQ(Path::GetPathRoot("C:\\mydir\\myfile.ext"), "C:\\");
+#endif
+}

@@ -134,6 +134,21 @@ class Path
      * @returns 是绝对路径返回True.
      */
     static bool IsPathRooted(const std::string& path);
+
+    /**
+     * 从指定字符串中包含的路径获取根目录信息。
+     * GetPathRoot('\mydir\') returns '\'
+     * GetPathRoot('myfile.ext') returns ''
+     * GetPathRoot('C:\mydir\myfile.ext') returns 'C:\'
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  path 字符串路径.
+     *
+     * @returns 跟目录.
+     */
+    static std::string GetPathRoot(const std::string& path);
 };
 
 } // namespace csharp
