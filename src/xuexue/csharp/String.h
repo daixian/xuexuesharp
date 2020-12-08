@@ -696,6 +696,66 @@ class String
      * @returns 拆分的结果.
      */
     static std::vector<std::string> Split(const std::string& str, std::vector<char> separator, int opt = 1 | 2);
+
+    /**
+     * 返回一个新字符串，其中此实例中出现的所有指定字符都替换为另一个指定的字符。
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  str        The string.
+     * @param  oldChar    The old character.
+     * @param  newChar    The new character.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns A std::string.
+     */
+    static std::string Replace(const std::string& str, char oldChar, char newChar, size_t startIndex = 0);
+
+    /**
+     * 返回一个新字符串，其中此实例中出现的所有指定字符都替换为另一个指定的字符。
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  str        The string.
+     * @param  oldChar    The old character.
+     * @param  newChar    The new character.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns A std::string.
+     */
+    static std::wstring Replace(const std::wstring& str, wchar_t oldChar, wchar_t newChar, size_t startIndex = 0);
+
+    /**
+     * 返回一个新字符串，其中当前实例中出现的所有指定字符串都替换为另一个指定的字符串。
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  str        The string.
+     * @param  oldValue   The old value.
+     * @param  newValue   如果newValue为空字符串,则删除的所有匹配项oldValue 。.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns A std::string.
+     */
+    static std::string Replace(const std::string& str, const std::string& oldValue, const std::string& newValue, size_t startIndex = 0);
+
+    /**
+     * 返回一个新字符串，其中当前实例中出现的所有指定字符串都替换为另一个指定的字符串。
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  str        The string.
+     * @param  oldValue   The old value.
+     * @param  newValue   如果newValue为空字符串,则删除的所有匹配项oldValue 。.
+     * @param  startIndex (Optional) The start index.
+     *
+     * @returns A std::string.
+     */
+    static std::wstring Replace(const std::wstring& str, const std::wstring& oldValue, const std::wstring& newValue, size_t startIndex = 0);
 };
 
 } // namespace csharp

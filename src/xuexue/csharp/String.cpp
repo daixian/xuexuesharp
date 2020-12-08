@@ -158,5 +158,25 @@ std::vector<std::string> String::Split(const std::string& str, std::vector<char>
     return result;
 }
 
+std::string String::Replace(const std::string& str, char oldChar, char newChar, size_t startIndex)
+{
+    return Poco::replace(str, oldChar, newChar, startIndex);
+}
+
+std::wstring String::Replace(const std::wstring& str, wchar_t oldChar, wchar_t newChar, size_t startIndex)
+{
+    return Poco::replace(str, oldChar, newChar, startIndex);
+}
+
+std::string String::Replace(const std::string& str, const std::string& oldValue, const std::string& newValue, size_t startIndex)
+{
+    return Poco::replace(str, oldValue, newValue, startIndex);
+}
+
+std::wstring String::Replace(const std::wstring& str, const std::wstring& oldValue, const std::wstring& newValue, size_t startIndex)
+{
+    return Poco::replace(str, oldValue, newValue, startIndex);
+}
+
 } // namespace csharp
 } // namespace xuexue

@@ -23,6 +23,16 @@ namespace xuexuesharpTest
             p = Path.Combine("1", "/2/3/");
             Assert.AreEqual(p, "/2/3/");
 
+            p = Path.Combine("/1", "/2/3/");
+            Assert.AreEqual(p, "/2/3/");
+
+            p = Path.Combine("/1/", "/2/3/");
+            Assert.AreEqual(p, "/2/3/");
+
+            p = Path.Combine("/1", "\\2/3/");
+            Assert.AreEqual(p, "\\2/3/");
+
+
             p = Path.Combine("1", "2/3/");
             Assert.AreEqual(p, "1\\2/3/");
 

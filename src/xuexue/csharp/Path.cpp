@@ -11,6 +11,7 @@
 #endif
 
 #include "Poco/Path.h"
+#include "String.h"
 
 namespace xuexue {
 namespace csharp {
@@ -142,6 +143,11 @@ std::string Path::Combine(const std::vector<std::string>& paths)
         p = Poco::Path(p.makeDirectory(), Poco::Path(paths[i + 1]));
     }
     return p.toString();
+}
+
+std::string Path::ToRelative(const std::string& path)
+{
+    return String::TrimStart(path, {'\\', '/'});
 }
 
 bool Path::IsPathFullyQualified(const std::string& path)

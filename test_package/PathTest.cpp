@@ -69,6 +69,16 @@ TEST(Path, Combine3)
 #endif
 }
 
+TEST(Path, Combine3_force)
+{
+    string p = Path::Combine("1", Path::ToRelative("/2"), Path::ToRelative("\\3"));
+#if defined(_WIN32) || defined(_WIN64)
+    ASSERT_EQ(p, "1\\2\\3");
+#else
+    ASSERT_EQ(p, "1/2/3");
+#endif
+}
+
 TEST(Path, Combine3_2)
 {
 #if defined(_WIN32) || defined(_WIN64)

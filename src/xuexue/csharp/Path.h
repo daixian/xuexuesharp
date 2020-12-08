@@ -10,6 +10,7 @@ class Path
   public:
     /**
      * 将两个字符串组合成一个路径.
+     * 要注意path2的开头不能有斜杠.否则会认为是绝对路径忽略path1,此时可以使用ToRelative()函数转换path2.
      *
      * @author daixian
      * @date 2020/10/18
@@ -61,6 +62,18 @@ class Path
      * @returns 已组合的路径.
      */
     static std::string Combine(const std::vector<std::string>& paths);
+
+    /**
+     * 把一个斜杠开头的绝对路径转成相对路径.
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  path 斜杠开头的绝对路径.
+     *
+     * @returns 相对路径.
+     */
+    static std::string ToRelative(const std::string& path);
 
     /**
      * 得到模块目录(dll或者exe所在的文件夹).末尾不带斜杠"D:\\Work\\F3DSys\\F3DSystem".

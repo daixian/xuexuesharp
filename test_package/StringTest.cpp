@@ -102,3 +102,15 @@ TEST(String, Split)
     auto res = String::Split("/123456\\312321/321", {'\\', '/'});
     ASSERT_EQ(res.size(), 3);
 }
+
+TEST(String, Replace)
+{
+    ASSERT_EQ(String::Replace("/123456\\312321/321", '\\', '/'), "/123456/312321/321");
+    ASSERT_EQ(String::Replace("/123456\\312321/321", "123456", ""), "/\\312321/321");
+}
+
+TEST(String, Replace2)
+{
+    ASSERT_EQ(String::Replace(L"/123456\\312321/321", L'\\', L'/'), L"/123456/312321/321");
+    ASSERT_EQ(String::Replace(L"/123456\\312321/321", L"123456", L""), L"/\\312321/321");
+}
