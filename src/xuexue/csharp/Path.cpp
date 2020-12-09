@@ -198,5 +198,34 @@ std::string Path::GetPathRoot(const std::string& path)
 #endif
 }
 
+std::string Path::GetDirectoryName(const std::string& path)
+{
+    Poco::Path p(path);
+    if (p.isFile()) {
+        if (p.depth() == 0) {
+            // 此时返回根目录盘符
+            return p.parent().toString();
+        }
+        return String::TrimEnd(p.parent().toString(), {'\\', '/'});
+    }
+    else if (p.isDirectory()) {
+        if (p.depth() == 0) {
+            // 此时是根目录盘符
+            return "";
+        }
+        return String::TrimEnd(path, {'\\', '/'});
+    }
+}
+
+std::string Path::GetExtension(const std::string& path)
+{
+    Poco::Path p(path);
+    std::string ext = p.getExtension();
+    if (!ext.empty()) {
+        return "." + ext;
+    }
+    return "";
+}
+
 } // namespace csharp
 } // namespace xuexue

@@ -160,3 +160,25 @@ TEST(Path, GetPathRoot)
     ASSERT_EQ(Path::GetPathRoot("C:\\mydir\\myfile.ext"), "C:\\");
 #endif
 }
+
+TEST(Path, GetDirectoryName)
+{
+    ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir\\MySubDir\\myfile.ext"), "C:\\MyDir\\MySubDir");
+    ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir\\MySubDir"), "C:\\MyDir");
+    ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir\\"), "C:\\MyDir");
+    ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir"), "C:\\");
+    ASSERT_EQ(Path::GetDirectoryName("C:\\"), "");
+
+    ASSERT_EQ(Path::GetDirectoryName("1\\2\\3"), "1\\2");
+    ASSERT_EQ(Path::GetDirectoryName("/"), "");
+    ASSERT_EQ(Path::GetDirectoryName("\\"), "");
+
+    ASSERT_EQ(Path::GetDirectoryName("123"), "");
+}
+
+TEST(Path, GetExtension)
+{
+    ASSERT_EQ(Path::GetExtension("C:\\MyDir\\MySubDir\\myfile.ext"), ".ext");
+    ASSERT_EQ(Path::GetExtension("C:\\MyDir\\MySubDir\\"), "");
+    ASSERT_EQ(Path::GetExtension("C:\\MyDir\\MySubDir\\123"), "");
+}

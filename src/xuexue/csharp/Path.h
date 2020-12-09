@@ -162,6 +162,37 @@ class Path
      * @returns 跟目录.
      */
     static std::string GetPathRoot(const std::string& path);
+
+    /**
+     * 返回path所在的目录,和c#的api行为一致.
+     * 
+     *  返回结果示例:
+     *  GetDirectoryName('C:\MyDir\MySubDir\myfile.ext') returns 'C:\MyDir\MySubDir'
+     *  GetDirectoryName('C:\MyDir\MySubDir') returns 'C:\MyDir'
+     *  GetDirectoryName('C:\MyDir\') returns 'C:\MyDir'
+     *  GetDirectoryName('C:\MyDir') returns 'C:\'
+     *  GetDirectoryName('C:\') returns ''
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  path 一个文件或文件夹路径.
+     *
+     * @returns 所在的目录.
+     */
+    static std::string GetDirectoryName(const std::string& path);
+
+    /**
+     * 返回指定路径字符串的扩展名（包括句点“.”）。
+     *
+     * @author daixian
+     * @date 2020/12/9
+     *
+     * @param  path Full pathname of the file.
+     *
+     * @returns The extension.
+     */
+    static std::string GetExtension(const std::string& path);
 };
 
 } // namespace csharp

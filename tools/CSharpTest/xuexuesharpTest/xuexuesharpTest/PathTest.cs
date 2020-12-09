@@ -58,5 +58,29 @@ namespace xuexuesharpTest
             Assert.AreEqual(Path.IsPathRooted("C:/1123"), true);
 
         }
+
+        [Test]
+        public void TestGetDirectoryName()
+        {
+            Assert.AreEqual(Path.GetDirectoryName(@"C:\MyDir\MySubDir\myfile.ext"), @"C:\MyDir\MySubDir");
+            Assert.AreEqual(Path.GetDirectoryName(@"C:\MyDir\MySubDir"), @"C:\MyDir");
+            Assert.AreEqual(Path.GetDirectoryName(@"C:\MyDir\"), @"C:\MyDir");
+            Assert.AreEqual(Path.GetDirectoryName(@"C:\MyDir"), @"C:\");
+            Assert.AreEqual(Path.GetDirectoryName(@"C:\"), null);
+
+            Assert.AreEqual(Path.GetDirectoryName(@"1\2\3"), @"1\2");
+            Assert.AreEqual(Path.GetDirectoryName(@"/"), null);
+            Assert.AreEqual(Path.GetDirectoryName(@"\\"), null);
+
+            Assert.AreEqual(Path.GetDirectoryName(@"123"), "");
+        }
+
+        [Test]
+        public void TestGetExtension()
+        {
+            Assert.AreEqual(Path.GetExtension(@"C:\MyDir\MySubDir\myfile.ext"), ".ext");
+            Assert.AreEqual(Path.GetExtension(@"C:\MyDir\"), "");
+            Assert.AreEqual(Path.GetExtension(@"C:\MyDir\123"), "");
+        }
     }
 }
