@@ -83,6 +83,52 @@ std::vector<char> File::ReadAllBytes(const std::string& path)
     return data;
 }
 
+void File::ReadAllBytes(const std::string& path, std::vector<char>& bytes)
+{
+    if (File::Exists(path)) {
+        std::ifstream ifs;
+        ifs.open(path, std::ios::binary);
+        if (ifs.is_open()) {
+            bytes.clear();
+            //获得文件长度
+            ifs.seekg(0, std::ios_base::end);
+            int len = static_cast<int>(ifs.tellg());
+
+            //回到文件头
+            ifs.seekg(0, std::ios_base::beg);
+
+            bytes.resize(len);
+            ifs.read((char*)bytes.data(), len);
+            ifs.close();
+        }
+        else {
+        }
+    }
+}
+
+void File::ReadAllBytes(const std::string& path, std::vector<unsigned char>& bytes)
+{
+    if (File::Exists(path)) {
+        std::ifstream ifs;
+        ifs.open(path, std::ios::binary);
+        if (ifs.is_open()) {
+            bytes.clear();
+            //获得文件长度
+            ifs.seekg(0, std::ios_base::end);
+            int len = static_cast<int>(ifs.tellg());
+
+            //回到文件头
+            ifs.seekg(0, std::ios_base::beg);
+
+            bytes.resize(len);
+            ifs.read((char*)bytes.data(), len);
+            ifs.close();
+        }
+        else {
+        }
+    }
+}
+
 std::string File::ReadAllText(const std::string& path)
 {
     std::string text;

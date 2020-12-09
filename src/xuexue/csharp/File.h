@@ -64,6 +64,28 @@ class File
     static std::vector<char> ReadAllBytes(const std::string& path);
 
     /**
+     * 打开一个二进制文件，将文件的内容读入一个字节数组，然后关闭该文件。(它提供char的数据结果).
+     *
+     * @author daixian
+     * @date 2020/12/10
+     *
+     * @param       path  要打开以进行读取的文件.
+     * @param [out] bytes 数据结果.
+     */
+    static void ReadAllBytes(const std::string& path, std::vector<char>& bytes);
+
+    /**
+     * 打开一个二进制文件，将文件的内容读入一个字节数组，然后关闭该文件。(它提供uchar的数据结果).
+     *
+     * @author daixian
+     * @date 2020/12/10
+     *
+     * @param       path  要打开以进行读取的文件.
+     * @param [out] bytes 数据结果.
+     */
+    static void ReadAllBytes(const std::string& path, std::vector<unsigned char>& bytes);
+
+    /**
      * 打开一个文本文件，读取文件中的所有文本，然后关闭此文件。
      *
      * @author daixian

@@ -64,6 +64,14 @@ TEST(File, WriteAllBytes)
         for (size_t i = 0; i < data2.size(); i++) {
             ASSERT_EQ(data[i], data2[i]);
         }
+
+        data2.clear();
+        File::ReadAllBytes("FileTestBytes.txt", data2);
+        ASSERT_EQ(data.size(), data2.size());
+
+        for (size_t i = 0; i < data2.size(); i++) {
+            ASSERT_EQ(data[i], data2[i]);
+        }
     }
 
     File::Delete("FileTest2.txt");
