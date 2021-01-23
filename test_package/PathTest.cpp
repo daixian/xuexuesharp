@@ -132,8 +132,11 @@ TEST(Path, ModuleDir)
 TEST(Path, isRelative)
 {
     ASSERT_EQ(Path::IsPathFullyQualified("1123"), false);
+#if defined(_WIN32) || defined(_WIN64)
     ASSERT_EQ(Path::IsPathFullyQualified("/1123"), false); //目前这个是windows下的结果为false
-
+#else
+    ASSERT_EQ(Path::IsPathFullyQualified("/1123"), true);
+#endif
     ASSERT_EQ(Path::IsPathRooted("1123"), false);
     ASSERT_EQ(Path::IsPathRooted("/1123"), true);
 
@@ -163,15 +166,16 @@ TEST(Path, GetPathRoot)
 
 TEST(Path, GetDirectoryName)
 {
+#if defined(_WIN32) || defined(_WIN64)
     ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir\\MySubDir\\myfile.ext"), "C:\\MyDir\\MySubDir");
     ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir\\MySubDir"), "C:\\MyDir");
     ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir\\"), "C:\\MyDir");
     ASSERT_EQ(Path::GetDirectoryName("C:\\MyDir"), "C:\\");
     ASSERT_EQ(Path::GetDirectoryName("C:\\"), "");
-
     ASSERT_EQ(Path::GetDirectoryName("1\\2\\3"), "1\\2");
-    ASSERT_EQ(Path::GetDirectoryName("/"), "");
     ASSERT_EQ(Path::GetDirectoryName("\\"), "");
+#endif
+    ASSERT_EQ(Path::GetDirectoryName("/"), "");
 
     ASSERT_EQ(Path::GetDirectoryName("123"), "");
 }
