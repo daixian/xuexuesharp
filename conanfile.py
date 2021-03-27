@@ -12,7 +12,7 @@ from conans import ConanFile, CMake, tools
 
 class xuexuesharpConan(ConanFile):
     name = "xuexuesharp"
-    version = "0.0.16"
+    version = "0.0.17"
     license = "This project is licensed under GLWTPL"
     author = "daixian<amano_tooko@qq.com>"
     url = "https://github.com/daixian/xuexuesharp"
@@ -22,6 +22,9 @@ class xuexuesharpConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = {"shared": False,
                        "poco:enable_data_sqlite": False,
+                       "poco:enable_data_mysql": False,
+                       "poco:enable_apacheconnector": False,
+                       "poco:enable_data_postgresql": False,
                        "poco:enable_mongodb": False,
                        "poco:enable_redis": False}
     generators = "cmake"

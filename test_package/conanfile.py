@@ -10,6 +10,9 @@ class xuexuesharpTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
     default_options = {"poco:enable_data_sqlite": False,
+                       "poco:enable_data_mysql": False,
+                       "poco:enable_apacheconnector": False,
+                       "poco:enable_data_postgresql": False,
                        "poco:enable_mongodb": False,
                        "poco:enable_redis": False}
 
