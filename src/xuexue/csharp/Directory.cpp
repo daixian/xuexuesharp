@@ -40,6 +40,37 @@ bool Directory::Exists(const std::string& path)
     return false;
 }
 
+void Directory::Copy(const std::string& sourceDirName, const std::string& destDirName, bool overwrite)
+{
+    Poco::File file(Poco::Path(sourceDirName).absolute());
+    //如果文件夹存在那么要删除这个文件夹,否则poco库会把源文件夹作为这个目标文件夹的子文件夹拷贝进去
+    Poco::File destDir = Poco::Path::forDirectory(destDirName).absolute();
+    if (destDir.exists()) {
+        destDir.remove(true);
+    }
+    //destDir.createDirectories();
+    if (!overwrite) {
+        file.copyTo(destDirName, Poco::File::Options::OPT_FAIL_ON_OVERWRITE);
+    }
+    else {
+        file.copyTo(destDirName);
+    }
+}
+
+void Directory::CopyIn(const std::string& sourceDirName, const std::string& destDirName, bool overwrite)
+{
+    Poco::File file(Poco::Path(sourceDirName).absolute());
+    //如果文件夹不存在那么要创建这个文件夹,这样poco库会把它当成一个子文件夹拷入
+    Poco::File destDir = Poco::Path::forDirectory(destDirName).absolute();
+    destDir.createDirectories();
+    if (!overwrite) {
+        file.copyTo(destDirName, Poco::File::Options::OPT_FAIL_ON_OVERWRITE);
+    }
+    else {
+        file.copyTo(destDirName);
+    }
+}
+
 std::string Directory::CurrentDirectory()
 {
     return Poco::Path::current();

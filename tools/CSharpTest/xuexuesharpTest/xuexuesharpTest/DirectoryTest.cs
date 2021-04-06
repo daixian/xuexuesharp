@@ -31,5 +31,22 @@ namespace xuexuesharpTest
             string[] dirs = Directory.GetDirectories("./");
             //在mac下这个root是返回/
         }
+
+        [Test]
+        public void TestMove()
+        {
+            //string[] dirs = Directory.Move( );
+            //在mac下这个root是返回/
+
+        }
+
+        [Test]
+        public void TestFileCopy()
+        {
+            //File.Copy("1.txt", "dest.txt");
+            //string[] dirs = Directory.Move( );
+            //在mac下这个root是返回/
+
+        }
     }
 }

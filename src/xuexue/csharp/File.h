@@ -30,6 +30,18 @@ class File
     static void AppendAllText(const std::string& path, const std::string& contents);
 
     /**
+     * 拷贝一个文件.
+     *
+     * @author daixian
+     * @date 2021/4/7
+     *
+     * @param  sourceFileName 源文件名.
+     * @param  destFileName   目标文件名.
+     * @param  overwrite      (Optional) True to overwrite, false to preserve.
+     */
+    static void Copy(const std::string& sourceFileName, const std::string& destFileName, bool overwrite = true);
+
+    /**
      * 删除一个文件
      *
      * @author daixian

@@ -49,6 +49,28 @@ TEST(Directory, createDirectory_Del2)
     ASSERT_FALSE(Directory::Exists(path));
 }
 
+TEST(Directory, createDirectory_Copy)
+{
+    Directory::Delete("./createDirectoryTest");
+    Directory::Delete("./createDirectoryTest2");
+    Directory::Delete("./createDirectoryTest3");
+
+    //创建然后删除
+    string path = "./createDirectoryTest/1/2/3/";
+    Directory::createDirectory(path);
+    ASSERT_TRUE(Directory::Exists(path));
+    //拷贝成一个文件夹
+    Directory::Copy("./createDirectoryTest/", "./createDirectoryTest2");
+    //拷贝成一个子文件夹
+    Directory::CopyIn("./createDirectoryTest/", "./createDirectoryTest3");
+
+    ASSERT_TRUE(Directory::Exists("./createDirectoryTest2/1"));
+    ASSERT_TRUE(Directory::Exists("./createDirectoryTest3/createDirectoryTest/1"));
+    Directory::Delete("./createDirectoryTest");
+    Directory::Delete("./createDirectoryTest2");
+    Directory::Delete("./createDirectoryTest3");
+}
+
 TEST(Directory, Exists_self)
 {
     ASSERT_TRUE(Directory::Exists("./"));

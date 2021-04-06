@@ -36,6 +36,20 @@ void File::AppendAllText(const std::string& path, const std::string& contents)
     }
 }
 
+void File::Copy(const std::string& sourceFileName, const std::string& destFileName, bool overwrite)
+{
+    Poco::File file(Poco::Path(sourceFileName).absolute());
+    //创建文件夹
+    Poco::File destDir = Poco::Path(destFileName).makeFile().parent().absolute();
+    destDir.createDirectories();
+    if (!overwrite) {
+        file.copyTo(destFileName, Poco::File::Options::OPT_FAIL_ON_OVERWRITE);
+    }
+    else {
+        file.copyTo(destFileName);
+    }
+}
+
 void File::Delete(const std::string& path)
 {
     Poco::File file(Poco::Path(path).absolute());

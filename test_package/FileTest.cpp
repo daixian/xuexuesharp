@@ -1,6 +1,7 @@
 ﻿#include "gtest/gtest.h"
 
 #include "xuexue/csharp/File.h"
+#include "xuexue/csharp/Directory.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -31,6 +32,21 @@ TEST(File, WriteAllText)
     string text2 = File::ReadAllText("FileTest.txt");
     ASSERT_EQ(text, text2);
     File::Delete("FileTest.txt");
+}
+
+TEST(File, Copy)
+{
+    Directory::Delete("./testDir");
+
+    string text = "这是一段文本内容\n";
+    File::WriteAllText("FileTest.txt", text);
+
+    File::Copy("FileTest.txt", "./testDir/copyDir/FileTest2.txt");
+    ASSERT_TRUE(File::Exists("./testDir/copyDir/FileTest2.txt"));
+
+    File::Delete("./testDir/copyDir/FileTest2.txt");
+    File::Delete("FileTest.txt");
+    Directory::Delete("./testDir");
 }
 
 TEST(File, AppendAllText)

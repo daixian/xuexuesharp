@@ -61,6 +61,30 @@ class Directory
     static bool Exists(const std::string& path);
 
     /**
+     * 拷贝一个文件夹成目标文件夹.
+     *
+     * @author daixian
+     * @date 2021/4/7
+     *
+     * @param  sourceDirName 源文件夹.
+     * @param  destDirName   目标文件夹.
+     * @param  overwrite     (Optional) 是否覆盖,否会有异常抛出.
+     */
+    static void Copy(const std::string& sourceDirName, const std::string& destDirName, bool overwrite = true);
+
+    /**
+     * 拷贝一个文件夹成为目标文件夹的一个子文件夹.
+     *
+     * @author daixian
+     * @date 2021/4/7
+     *
+     * @param  sourceDirName 源文件夹.
+     * @param  destDirName   目标文件夹.
+     * @param  overwrite     (Optional) 是否覆盖,否会有异常抛出.
+     */
+    static void CopyIn(const std::string& sourceDirName, const std::string& destDirName, bool overwrite = true);
+
+    /**
      * 获取应用程序的当前工作目录。
      *
      * @author daixian
