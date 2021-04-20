@@ -5,6 +5,7 @@
 
 #include "Poco/Path.h"
 #include "Poco/File.h"
+#include "Poco/FileStream.h"
 #include "stdio.h"
 
 #include <Poco/TextConverter.h>
@@ -29,8 +30,8 @@ ios::trunc：    如果文件存在，把文件长度设为0
 
 void File::AppendAllText(const std::string& path, const std::string& contents)
 {
-    std::ofstream ofs(path, std::ios::app | std::ios::binary);
-    if (ofs.is_open()) {
+    Poco::FileOutputStream ofs(path, std::ios::app | std::ios::binary);
+    if (ofs) {
         ofs.write(contents.c_str(), static_cast<std::streamsize>(contents.size()));
         ofs.close();
     }
@@ -77,9 +78,8 @@ std::vector<char> File::ReadAllBytes(const std::string& path)
 {
     std::vector<char> data;
     if (File::Exists(path)) {
-        std::ifstream ifs;
-        ifs.open(path, std::ios::binary);
-        if (ifs.is_open()) {
+        Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
+        if (ifs) {
             //获得文件长度
             ifs.seekg(0, std::ios_base::end);
             int len = static_cast<int>(ifs.tellg());
@@ -100,9 +100,8 @@ std::vector<char> File::ReadAllBytes(const std::string& path)
 void File::ReadAllBytes(const std::string& path, std::vector<char>& bytes)
 {
     if (File::Exists(path)) {
-        std::ifstream ifs;
-        ifs.open(path, std::ios::binary);
-        if (ifs.is_open()) {
+        Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
+        if (ifs) {
             bytes.clear();
             //获得文件长度
             ifs.seekg(0, std::ios_base::end);
@@ -123,9 +122,8 @@ void File::ReadAllBytes(const std::string& path, std::vector<char>& bytes)
 void File::ReadAllBytes(const std::string& path, std::vector<unsigned char>& bytes)
 {
     if (File::Exists(path)) {
-        std::ifstream ifs;
-        ifs.open(path, std::ios::binary);
-        if (ifs.is_open()) {
+        Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
+        if (ifs) {
             bytes.clear();
             //获得文件长度
             ifs.seekg(0, std::ios_base::end);
@@ -147,9 +145,8 @@ std::string File::ReadAllText(const std::string& path)
 {
     std::string text;
     if (File::Exists(path)) {
-        std::ifstream ifs;
-        ifs.open(path, std::ios::binary);
-        if (ifs.is_open()) {
+        Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
+        if (ifs) {
             //获得文件长度
             ifs.seekg(0, std::ios_base::end);
             int len = static_cast<int>(ifs.tellg());
@@ -197,8 +194,9 @@ void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 {
     //如果文件夹不存在那么会报异常
     //System.IO.DirectoryNotFoundException:“Could not find a part of the path 'C:\\shaTest\\text.txt'.”
-    std::ofstream ofs(path, std::ios::out | std::ios::binary);
-    if (ofs.is_open()) {
+    //std::ofstream ofs(path, std::ios::out | std::ios::binary);// std的这个在windows下utf8路径不行
+    Poco::FileOutputStream ofs(path);
+    if (ofs) {
         ofs.write(bytes, static_cast<std::streamsize>(len));
         ofs.close();
     }
@@ -206,11 +204,14 @@ void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 
 void File::WriteAllText(const std::string& path, const std::string& contents)
 {
-    std::ofstream ofs(path, std::ios::out | std::ios::binary);
-    if (ofs.is_open()) {
+    //ios::trunc 如果文件已存在则先删除该文件
+    Poco::FileOutputStream ofs(path);
+
+    //std::ofstream ofs(path, std::ios::out | std::ios::binary);   // std的这个在windows下utf8路径不行
+    if (ofs) {
         ofs << contents;
-        ofs.close();
     }
+    ofs.close();
 }
 
 void File::WriteAllText(const std::string& path, const std::string& contents, Encoding encoding)

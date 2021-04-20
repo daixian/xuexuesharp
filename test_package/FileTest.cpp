@@ -34,6 +34,15 @@ TEST(File, WriteAllText)
     File::Delete("FileTest.txt");
 }
 
+TEST(File, WriteAllText_CNPath)
+{
+    string text = "111\r\n222\r\n333\n4K•超清♥";
+    File::WriteAllText("4K•超清♥大喜「旗袍✿汉元素」.txt", text);
+    string text2 = File::ReadAllText("4K•超清♥大喜「旗袍✿汉元素」.txt");
+    ASSERT_EQ(text, text2);
+    File::Delete("FileTest.txt");
+}
+
 TEST(File, Copy)
 {
     Directory::Delete("./testDir");
