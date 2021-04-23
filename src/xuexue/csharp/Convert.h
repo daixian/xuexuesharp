@@ -104,6 +104,54 @@ class Convert
      * @returns 解码的数据.
      */
     static std::vector<unsigned char> FromHexString(const std::string& s);
+
+    /**
+     * 转换一个字节数组到一个同样大小的string数组
+     *
+     * @author daixian
+     * @date 2021/4/23
+     *
+     * @param  bytes The bytes.
+     *
+     * @returns A std::string that represents this object.
+     */
+    static std::string ToString(const std::vector<unsigned char>& bytes);
+
+    /**
+     * 转换一个字节数组到一个同样大小的string数组
+     *
+     * @author daixian
+     * @date 2021/4/23
+     *
+     * @param  bytes The bytes.
+     *
+     * @returns A std::string that represents this object.
+     */
+    static std::string ToString(const std::vector<char>& bytes);
+
+    /**
+     * 转换到一个字节数组
+     *
+     * @author daixian
+     * @date 2021/4/23
+     *
+     * @param  str The string.
+     *
+     * @returns Str as a std::vector<char>
+     */
+    static std::vector<char> ToBytes(const std::string& str);
+
+    /**
+     * 转换到一个字节数组
+     *
+     * @author daixian
+     * @date 2021/4/23
+     *
+     * @param  str The string.
+     *
+     * @returns Str as a std::vector<unsigned char>
+     */
+    static std::vector<unsigned char> ToUBytes(const std::string& str);
 };
 
 } // namespace csharp

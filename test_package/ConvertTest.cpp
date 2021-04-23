@@ -123,3 +123,25 @@ TEST(Convert, Hex)
         ASSERT_TRUE(data[i] == data2[i]);
     }
 }
+
+TEST(Convert, ToString)
+{
+    vector<unsigned char> data;
+
+    data.clear();
+    for (size_t i = 0; i < 64; i++) {
+        data.push_back((unsigned char)i);
+    }
+
+    string str = Convert::ToString(data);
+
+    for (size_t i = 0; i < data.size(); i++) {
+        ASSERT_TRUE(str[i] == data[i]);
+    }
+
+    vector<unsigned char> data2 = Convert::ToUBytes(str);
+
+    for (size_t i = 0; i < data.size(); i++) {
+        ASSERT_TRUE(data[i] == data2[i]);
+    }
+}

@@ -79,5 +79,37 @@ std::vector<unsigned char> Convert::FromHexString(const std::string& s)
     return data;
 }
 
+std::string Convert::ToString(const std::vector<unsigned char>& bytes)
+{
+    std::string str;
+    str.resize(bytes.size());
+    memcpy((char*)str.data(), bytes.data(), bytes.size());
+    return str;
+}
+
+std::string Convert::ToString(const std::vector<char>& bytes)
+{
+    std::string str;
+    str.resize(bytes.size());
+    memcpy((char*)str.data(), bytes.data(), bytes.size());
+    return str;
+}
+
+std::vector<char> Convert::ToBytes(const std::string& str)
+{
+    std::vector<char> bytes;
+    bytes.resize(str.size());
+    memcpy((char*)bytes.data(), str.data(), str.size());
+    return bytes;
+}
+
+std::vector<unsigned char> Convert::ToUBytes(const std::string& str)
+{
+    std::vector<unsigned char> bytes;
+    bytes.resize(str.size());
+    memcpy((char*)bytes.data(), str.data(), str.size());
+    return bytes;
+}
+
 } // namespace csharp
 } // namespace xuexue

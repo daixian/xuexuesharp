@@ -215,6 +215,7 @@ std::string Path::GetDirectoryName(const std::string& path)
         }
         return String::TrimEnd(path, {'\\', '/'});
     }
+    return "";
 }
 
 std::string Path::GetExtension(const std::string& path)
