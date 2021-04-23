@@ -39,6 +39,19 @@ std::string Convert::ToBase32String(const void* inArray, int offset, int length)
     return cppcodec::base32_crockford::encode<std::string>(ptr, length);
 }
 
+std::string Convert::ToHexString(const void* inArray, int offset, int length)
+{
+    std::string str;
+    str.reserve(length * 2);
+    unsigned char* ptr = ((unsigned char*)inArray) + offset;
+    char byteText[8]; //这个buff必须要有3个字节大
+    for (size_t i = 0; i < length; i++) {
+        sprintf(byteText, "%02x", ptr[i]);
+        str.append(byteText, 2);
+    }
+    return str;
+}
+
 std::vector<unsigned char> Convert::FromBase64String(const std::string& s, Base64Options option)
 {
     if (option == Base64Options::URL)
@@ -50,6 +63,20 @@ std::vector<unsigned char> Convert::FromBase64String(const std::string& s, Base6
 std::vector<unsigned char> Convert::FromBase32String(const std::string& s)
 {
     return cppcodec::base32_crockford::decode<std::vector<unsigned char>>(s);
+}
+
+std::vector<unsigned char> Convert::FromHexString(const std::string& s)
+{
+    std::vector<unsigned char> data;
+    for (size_t i = 0; i < s.size() / 2; i++) {
+        char byteText[8];
+        byteText[0] = s.c_str()[i * 2];
+        byteText[1] = s.c_str()[i * 2 + 1];
+        byteText[2] = '\0';
+        int val = strtol(byteText, NULL, 16);
+        data.push_back(val);
+    }
+    return data;
 }
 
 } // namespace csharp

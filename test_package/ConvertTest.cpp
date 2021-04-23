@@ -105,3 +105,21 @@ TEST(Convert, Base32_12byte)
         ASSERT_TRUE(data[i] == data2[i]);
     }
 }
+
+TEST(Convert, Hex)
+{
+    vector<unsigned char> data;
+
+    data.clear();
+    for (size_t i = 0; i < 64; i++) {
+        data.push_back((unsigned char)i);
+    }
+
+    string hexStr = Convert::ToHexString(data.data(), 0, data.size());
+
+    vector<unsigned char> data2 = Convert::FromHexString(hexStr);
+
+    for (size_t i = 0; i < data.size(); i++) {
+        ASSERT_TRUE(data[i] == data2[i]);
+    }
+}

@@ -55,6 +55,20 @@ class Convert
     static std::string ToBase32String(const void* inArray, int offset, int length);
 
     /**
+     * 转换字节数组到一个十六进制的字符串(小写).
+     *
+     * @author daixian
+     * @date 2021/4/23
+     *
+     * @param  inArray 字节数组.
+     * @param  offset  起点.
+     * @param  length  长度.
+     *
+     * @returns 十六进制的字符串.
+     */
+    static std::string ToHexString(const void* inArray, int offset, int length);
+
+    /**
      * base64的编码转成字节
      *
      * @author daixian
@@ -78,6 +92,18 @@ class Convert
      * @returns 解码的数据.
      */
     static std::vector<unsigned char> FromBase32String(const std::string& s);
+
+    /**
+     * 16进制编码的文本转成字节
+     *
+     * @author daixian
+     * @date 2021/4/23
+     *
+     * @param  s 16进制编码的文本.
+     *
+     * @returns 解码的数据.
+     */
+    static std::vector<unsigned char> FromHexString(const std::string& s);
 };
 
 } // namespace csharp
