@@ -22,7 +22,7 @@ class xuexuesharpTestConan(ConanFile):
         self.requires("rapidjson/[>=1.1.0]")
 
     def build_requirements(self):
-        self.build_requires("gtest/1.8.1@bincrafters/stable")
+        self.build_requires("gtest/1.8.1")
 
     def build(self):
         cmake = CMake(self)

@@ -75,16 +75,19 @@ class Path
      */
     static std::string ToRelative(const std::string& path);
 
+#if defined(_WIN32) || defined(_WIN64)
+
     /**
-     * 得到模块目录(dll或者exe所在的文件夹).末尾不带斜杠"D:\\Work\\F3DSys\\F3DSystem".
+     * @brief 得到模块目录(dll或者exe所在的文件夹).末尾不带斜杠"D:\\Work\\F3DSys\\F3DSystem".
      * 这是dx自己加的函数，这个函数基本上是一个windows下才有意义的概念.
      *
-     * @author daixian
-     * @date 2020/10/18
-     *
-     * @returns The module dir.
+     * @param handle 如果是dll那么要传入dll的句柄.
+     * @return 返回文件夹路径结果
      */
+    static std::string ModuleDir(void* handle = nullptr);
+#else
     static std::string ModuleDir();
+#endif
 
     /**
      * GReturns the current working directory.
@@ -165,7 +168,7 @@ class Path
 
     /**
      * 返回path所在的目录,和c#的api行为一致.
-     * 
+     *
      *  返回结果示例:
      *  GetDirectoryName('C:\MyDir\MySubDir\myfile.ext') returns 'C:\MyDir\MySubDir'
      *  GetDirectoryName('C:\MyDir\MySubDir') returns 'C:\MyDir'

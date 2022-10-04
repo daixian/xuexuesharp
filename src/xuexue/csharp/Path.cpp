@@ -16,27 +16,20 @@
 namespace xuexue {
 namespace csharp {
 
-//只需要使用api获得一次就行了
-std::string moduleDir;
-
 #if defined(_WIN32) || defined(_WIN64)
 
-std::string Path::ModuleDir()
+std::string Path::ModuleDir(void* handle)
 {
-    if (!moduleDir.empty()) {
-        return moduleDir; //只要有记录了就直接使用
-    }
-    else {
-        char exeFullPath[MAX_PATH]; // Full path
-        std::string strPath = "";
+    std::string moduleDir;
+    char exeFullPath[MAX_PATH]; // Full path
+    std::string strPath = "";
 
-        GetModuleFileNameA(NULL, exeFullPath, MAX_PATH);
+    GetModuleFileNameA((HMODULE)handle, exeFullPath, MAX_PATH);
 
-        strPath = std::string(exeFullPath); // Get full path of the file
-        size_t pos = strPath.find_last_of('\\', strPath.length());
-        moduleDir = strPath.substr(0, pos); // Return the directory without the file name
-        return moduleDir;
-    }
+    strPath = std::string(exeFullPath); // Get full path of the file
+    size_t pos = strPath.find_last_of('\\', strPath.length());
+    moduleDir = strPath.substr(0, pos); // Return the directory without the file name
+    return moduleDir;
 }
 #elif __APPLE__
 #    include "TargetConditionals.h"
@@ -67,19 +60,15 @@ std::string Path::ModuleDir()
 
 std::string Path::ModuleDir()
 {
-    if (!moduleDir.empty()) {
-        return moduleDir; //只要有记录了就直接使用
-    }
-    else {
-        char arg1[32];
-        char exepath[512 + 1] = {0};
-        snprintf(arg1, sizeof(arg1), "/proc/%d/exe", getpid());
-        readlink(arg1, exepath, sizeof(exepath));
-        std::string exeStr = std::string(exepath);
-        size_t pos = exeStr.find_last_of('/', exeStr.length());
-        moduleDir = exeStr.substr(0, pos); // Return the directory without the file name
-        return moduleDir;
-    }
+    std::string moduleDir;
+    char arg1[32];
+    char exepath[512 + 1] = {0};
+    snprintf(arg1, sizeof(arg1), "/proc/%d/exe", getpid());
+    readlink(arg1, exepath, sizeof(exepath));
+    std::string exeStr = std::string(exepath);
+    size_t pos = exeStr.find_last_of('/', exeStr.length());
+    moduleDir = exeStr.substr(0, pos); // Return the directory without the file name
+    return moduleDir;
 }
 
 #elif __unix__ // all unices not caught above
