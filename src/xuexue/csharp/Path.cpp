@@ -21,12 +21,13 @@ namespace csharp {
 std::string Path::ModuleDir(void* handle)
 {
     std::string moduleDir;
-    char exeFullPath[MAX_PATH]; // Full path
+    wchar_t exeFullPath[MAX_PATH]; // Full path
+    // 这里如果用A函数那么会返回GBK的路径,然后GBK的路径在conan中会失败,所以必须要使用W的函数
+    GetModuleFileNameW((HMODULE)handle, exeFullPath, MAX_PATH);
+
     std::string strPath = "";
-
-    GetModuleFileNameA((HMODULE)handle, exeFullPath, MAX_PATH);
-
-    strPath = std::string(exeFullPath); // Get full path of the file
+    strPath = String::UTF16ToUTF8(std::wstring(exeFullPath)); //转成UTF8的路径
+    // 这个是exe的路径,要裁剪成dir
     size_t pos = strPath.find_last_of('\\', strPath.length());
     moduleDir = strPath.substr(0, pos); // Return the directory without the file name
     return moduleDir;

@@ -146,3 +146,14 @@ TEST(Directory, GetDirectories_test1)
     ASSERT_EQ(files.size(), 1); //能够搜索出这个文件夹
     Directory::Delete("./1");
 }
+
+TEST(Directory, GetDirectories_test2)
+{
+    Directory::createDirectory("./中文/智能制造VR体验软件V1.0/123");
+    ASSERT_TRUE(Directory::Exists("./中文/智能制造VR体验软件V1.0/123"));
+    File::WriteAllText("./中文/智能制造VR体验软件V1.0/1.txt", "随便写点的什么内容");
+    ASSERT_TRUE(File::Exists("./中文/智能制造VR体验软件V1.0/1.txt"));
+    auto dirs = Directory::GetDirectories("./", "智能制造VR体验软件V1.0", Directory::SearchOption::AllDirectories);
+    ASSERT_EQ(dirs.size(), 1); //能够搜索出这个文件夹
+    //Directory::Delete("./中文");
+}
