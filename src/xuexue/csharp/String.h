@@ -28,7 +28,7 @@ class String
      *
      * @param  utf16 utf16的字符串,存在一个wstring中.
      *
-     * @returns utf8的字符串.
+     * @returns utf8的字符串,转化失败会是空字符串.
      */
     static std::string UTF16ToUTF8(const std::wstring& utf16);
 
@@ -43,7 +43,7 @@ class String
      *
      * @param  utf8 utf8的字符串.
      *
-     * @returns utf16的wstring字符串.
+     * @returns utf16的wstring字符串,转化失败会是空字符串.
      */
     static std::wstring UTF8ToUTF16(const std::string& utf8);
 
@@ -129,7 +129,7 @@ class String
         if (value.empty() || str.empty()) {
             return false;
         }
-        if (str.size() < value.size()) { //如果字符串比value更短那么肯定包含不了
+        if (str.size() < value.size()) { // 如果字符串比value更短那么肯定包含不了
             return false;
         }
         for (size_t i = 0; i <= str.size() - value.size(); i++) {
@@ -137,7 +137,9 @@ class String
                 if (str[i + j] != value[j]) {
                     break;
                 }
-                return true;
+                if (j == value.size() - 1) {
+                    return true;
+                }
             }
         }
         return false;
@@ -159,7 +161,7 @@ class String
         if (value.empty() || str.empty()) {
             return false;
         }
-        if (str.size() < value.size()) { //如果字符串比value更短那么肯定包含不了
+        if (str.size() < value.size()) { // 如果字符串比value更短那么肯定包含不了
             return false;
         }
         for (size_t i = 0; i <= str.size() - value.size(); i++) {
@@ -167,7 +169,9 @@ class String
                 if (str[i + j] != value[j]) {
                     break;
                 }
-                return true;
+                if (j == value.size() - 1) {
+                    return true;
+                }
             }
         }
         return false;
@@ -510,29 +514,29 @@ class String
     static std::wstring ToUpper(const std::wstring& str);
 
     /**
-    * Removes all leading and trailing white-space characters from the current string.
-    * 从当前字符串中删除数组中白空格字符的所有前导和尾随出现。
-    *
-    * @author daixian
-    * @date 2020/12/8
-    *
-    * @param  str The string.
-    *
-    * @returns 结果字符串.
-    */
+     * Removes all leading and trailing white-space characters from the current string.
+     * 从当前字符串中删除数组中白空格字符的所有前导和尾随出现。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str The string.
+     *
+     * @returns 结果字符串.
+     */
     static std::string Trim(const std::string& str);
 
     /**
-    * Removes all leading and trailing white-space characters from the current string.
-    * 从当前字符串中删除数组中白空格字符的所有前导和尾随出现。
-    *
-    * @author daixian
-    * @date 2020/12/8
-    *
-    * @param  str The string.
-    *
-    * @returns 结果字符串.
-    */
+     * Removes all leading and trailing white-space characters from the current string.
+     * 从当前字符串中删除数组中白空格字符的所有前导和尾随出现。
+     *
+     * @author daixian
+     * @date 2020/12/8
+     *
+     * @param  str The string.
+     *
+     * @returns 结果字符串.
+     */
     static std::wstring Trim(const std::wstring& str);
 
     /**

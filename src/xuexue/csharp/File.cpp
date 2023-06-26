@@ -1,4 +1,4 @@
-﻿#include "File.h"
+﻿#include "xuexue/csharp/File.h"
 
 #include <iostream>
 #include <fstream>
@@ -40,7 +40,7 @@ void File::AppendAllText(const std::string& path, const std::string& contents)
 void File::Copy(const std::string& sourceFileName, const std::string& destFileName, bool overwrite)
 {
     Poco::File file(Poco::Path(sourceFileName).absolute());
-    //创建文件夹
+    // 创建文件夹
     Poco::File destDir = Poco::Path(destFileName).makeFile().parent().absolute();
     destDir.createDirectories();
     if (!overwrite) {
@@ -54,14 +54,14 @@ void File::Copy(const std::string& sourceFileName, const std::string& destFileNa
 void File::Delete(const std::string& path)
 {
     Poco::File file(Poco::Path(path).absolute());
-    if (file.exists() && file.isFile()) //要先判断是否文件存在,然后再判断是否是文件,否则io异常
+    if (file.exists() && file.isFile()) // 要先判断是否文件存在,然后再判断是否是文件,否则io异常
         file.remove();
 }
 
 bool File::Exists(const std::string& path)
 {
     Poco::File file(Poco::Path(path).absolute());
-    //如果传入了一些非法的文件名,那么它会异常
+    // 如果传入了一些非法的文件名,那么它会异常
     try {
         if (file.exists() && file.isFile()) {
             return true;
@@ -80,11 +80,11 @@ std::vector<char> File::ReadAllBytes(const std::string& path)
     if (File::Exists(path)) {
         Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
         if (ifs) {
-            //获得文件长度
+            // 获得文件长度
             ifs.seekg(0, std::ios_base::end);
             int len = static_cast<int>(ifs.tellg());
 
-            //回到文件头
+            // 回到文件头
             ifs.seekg(0, std::ios_base::beg);
 
             data.resize(len);
@@ -103,11 +103,11 @@ void File::ReadAllBytes(const std::string& path, std::vector<char>& bytes)
         Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
         if (ifs) {
             bytes.clear();
-            //获得文件长度
+            // 获得文件长度
             ifs.seekg(0, std::ios_base::end);
             int len = static_cast<int>(ifs.tellg());
 
-            //回到文件头
+            // 回到文件头
             ifs.seekg(0, std::ios_base::beg);
 
             bytes.resize(len);
@@ -125,11 +125,11 @@ void File::ReadAllBytes(const std::string& path, std::vector<unsigned char>& byt
         Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
         if (ifs) {
             bytes.clear();
-            //获得文件长度
+            // 获得文件长度
             ifs.seekg(0, std::ios_base::end);
             int len = static_cast<int>(ifs.tellg());
 
-            //回到文件头
+            // 回到文件头
             ifs.seekg(0, std::ios_base::beg);
 
             bytes.resize(len);
@@ -147,11 +147,11 @@ std::string File::ReadAllText(const std::string& path)
     if (File::Exists(path)) {
         Poco::FileInputStream ifs(path, std::ios::in | std::ios::binary);
         if (ifs) {
-            //获得文件长度
+            // 获得文件长度
             ifs.seekg(0, std::ios_base::end);
             int len = static_cast<int>(ifs.tellg());
 
-            //回到文件头
+            // 回到文件头
             ifs.seekg(0, std::ios_base::beg);
 
             text.resize(len);
@@ -166,7 +166,7 @@ std::string File::ReadAllText(const std::string& path)
 
 std::string File::ReadAllText(const std::string& path, Encoding encoding)
 {
-    //C#里面的字符串应该都是UTF8的,所以这个函数应该就是把GBK编码的文本转成UTF8的
+    // C#里面的字符串应该都是UTF8的,所以这个函数应该就是把GBK编码的文本转成UTF8的
     if (encoding == Encoding::GBK) {
         std::string s = ReadAllText(path);
         Poco::Windows936Encoding cp936;
@@ -192,9 +192,9 @@ std::string File::ReadAllText(const std::string& path, Encoding encoding)
 
 void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 {
-    //如果文件夹不存在那么会报异常
-    //System.IO.DirectoryNotFoundException:“Could not find a part of the path 'C:\\shaTest\\text.txt'.”
-    //std::ofstream ofs(path, std::ios::out | std::ios::binary);// std的这个在windows下utf8路径不行
+    // 如果文件夹不存在那么会报异常
+    // System.IO.DirectoryNotFoundException:“Could not find a part of the path 'C:\\shaTest\\text.txt'.”
+    // std::ofstream ofs(path, std::ios::out | std::ios::binary);// std的这个在windows下utf8路径不行
     Poco::FileOutputStream ofs(path);
     if (ofs) {
         ofs.write(bytes, static_cast<std::streamsize>(len));
@@ -204,10 +204,10 @@ void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 
 void File::WriteAllText(const std::string& path, const std::string& contents)
 {
-    //ios::trunc 如果文件已存在则先删除该文件
+    // ios::trunc 如果文件已存在则先删除该文件
     Poco::FileOutputStream ofs(path);
 
-    //std::ofstream ofs(path, std::ios::out | std::ios::binary);   // std的这个在windows下utf8路径不行
+    // std::ofstream ofs(path, std::ios::out | std::ios::binary);   // std的这个在windows下utf8路径不行
     if (ofs) {
         ofs << contents;
     }
@@ -216,7 +216,7 @@ void File::WriteAllText(const std::string& path, const std::string& contents)
 
 void File::WriteAllText(const std::string& path, const std::string& contents, Encoding encoding)
 {
-    //C#里面的字符串应该都是UTF8的
+    // C#里面的字符串应该都是UTF8的
     if (encoding == Encoding::GBK) {
         Poco::Windows936Encoding cp936;
         Poco::UTF8Encoding utf8;

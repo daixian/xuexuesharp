@@ -1,4 +1,4 @@
-﻿#include "DirectoryInfo.h"
+﻿#include "xuexue/csharp/DirectoryInfo.h"
 #include "Poco/File.h"
 #include "Poco/Path.h"
 
@@ -58,10 +58,10 @@ DirectoryInfo DirectoryInfo::Root()
 {
     std::string device = Poco::Path(FullPath).getDevice();
 #if _WIN32
-    //windows上C#返回如下
+    // windows上C#返回如下
     return DirectoryInfo(device + ":\\");
 #else
-    //mac下返回这个，其他系统可能也是
+    // mac下返回这个，其他系统可能也是
     return DirectoryInfo("/");
 #endif
 }
@@ -81,10 +81,10 @@ std::vector<FileInfo> DirectoryInfo::GetFiles()
 
     Poco::File dir(FullPath);
 
-    //这里文件夹如果不存在那么会抛出异常Path not found
-    //if (!dir.exists()) {
-    //    return result;
-    //}
+    // 这里文件夹如果不存在那么会抛出异常Path not found
+    // if (!dir.exists()) {
+    //     return result;
+    // }
 
     std::vector<Poco::File> vFiles;
     dir.list(vFiles);
@@ -93,7 +93,7 @@ std::vector<FileInfo> DirectoryInfo::GetFiles()
         Poco::File& file = vFiles[i];
         if (file.isFile() && file.exists()) {
             Poco::Path filePath(vFiles[i].path());
-            //添加绝对路径到结果
+            // 添加绝对路径到结果
             result.push_back(filePath.absolute().makeDirectory().toString());
         }
     }
@@ -113,7 +113,7 @@ std::vector<DirectoryInfo> DirectoryInfo::GetDirectories()
         Poco::File& file = vFiles[i];
         if (file.isDirectory() && file.exists()) {
             Poco::Path filePath(vFiles[i].path());
-            //添加绝对路径到结果
+            // 添加绝对路径到结果
             result.push_back(filePath.absolute().makeDirectory().toString());
         }
     }

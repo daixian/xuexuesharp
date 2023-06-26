@@ -1,4 +1,4 @@
-﻿#include "FileInfo.h"
+﻿#include "xuexue/csharp/FileInfo.h"
 #include "Poco/File.h"
 #include "Poco/Path.h"
 
@@ -32,7 +32,7 @@ bool FileInfo::Exists()
 
 std::string FileInfo::Name()
 {
-    //FileName是带扩展名的
+    // FileName是带扩展名的
     return Poco::Path(FullPath).getFileName();
 }
 

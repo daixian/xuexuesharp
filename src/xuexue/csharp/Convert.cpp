@@ -1,7 +1,7 @@
-﻿#include "Convert.h"
-#include "../libs/cppcodec/base32_crockford.hpp"
-#include "../libs/cppcodec/base64_rfc4648.hpp"
-#include "../libs/cppcodec/base64_url.hpp"
+﻿#include "xuexue/csharp/Convert.h"
+#include "xuexue/csharp/cppcodec/base32_crockford.hpp"
+#include "xuexue/csharp/cppcodec/base64_rfc4648.hpp"
+#include "xuexue/csharp/cppcodec/base64_url.hpp"
 
 namespace xuexue {
 namespace csharp {
@@ -23,8 +23,8 @@ base64_url_unpaddedvariant:
 
 std::string Convert::ToBase64String(const void* inArray, int offset, int length, Base64Options option)
 {
-    //在C#中有Base64FormattingOptions:
-    //如果每 76 个字符插入一个分行符，则使用 InsertLineBreaks，如果不插入分行符，则使用 None。
+    // 在C#中有Base64FormattingOptions:
+    // 如果每 76 个字符插入一个分行符，则使用 InsertLineBreaks，如果不插入分行符，则使用 None。
     unsigned char* ptr = ((unsigned char*)inArray) + offset;
 
     if (option == Base64Options::URL)
@@ -44,7 +44,7 @@ std::string Convert::ToHexString(const void* inArray, int offset, int length)
     std::string str;
     str.reserve(length * 2);
     unsigned char* ptr = ((unsigned char*)inArray) + offset;
-    char byteText[8]; //这个buff必须要有3个字节大
+    char byteText[8]; // 这个buff必须要有3个字节大
     for (size_t i = 0; i < length; i++) {
         sprintf(byteText, "%02x", ptr[i]);
         str.append(byteText, 2);

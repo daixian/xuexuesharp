@@ -1,4 +1,4 @@
-﻿#include "String.h"
+﻿#include "xuexue/csharp/String.h"
 //利用rapidjson做utf8和utf16的转换
 #include "rapidjson/encodings.h"
 #include "rapidjson/stringbuffer.h"
@@ -144,7 +144,7 @@ std::wstring String::Trim(const std::wstring& str)
 
 std::vector<std::string> String::Split(const std::string& str, std::vector<char> separator, int opt)
 {
-    std::string splitsArg; //合并多个分隔符参数
+    std::string splitsArg; // 合并多个分隔符参数
     for (size_t i = 0; i < separator.size(); i++) {
         splitsArg.push_back(separator[i]);
     }
