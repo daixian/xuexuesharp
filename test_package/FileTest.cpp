@@ -43,6 +43,16 @@ TEST(File, WriteAllText_CNPath)
     File::Delete("FileTest.txt");
 }
 
+TEST(File, WriteAllTextNoDir)
+{
+    for (size_t i = 0; i < 4; i++) {
+        string text = "111\r\n222\r\n333\n4K•超清♥";
+        File::WriteAllText("./cstest01/FileTestBytes.txt", text);
+        string text2 = File::ReadAllText("./cstest01/FileTestBytes.txt");
+        ASSERT_EQ(text, text2);
+    }
+}
+
 TEST(File, Copy)
 {
     Directory::Delete("./testDir");

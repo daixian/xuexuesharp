@@ -14,6 +14,9 @@
 
 #include <Poco/UTF16Encoding.h>
 
+#include "FileInfo.h"
+#include "DirectoryInfo.h"
+
 namespace xuexue {
 namespace csharp {
 
@@ -192,6 +195,13 @@ std::string File::ReadAllText(const std::string& path, Encoding encoding)
 
 void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 {
+    FileInfo fi(path);
+    DirectoryInfo di(fi.DirectoryName());
+
+    if (!di.Exists()) {
+        di.Create(true);
+    }
+
     // 如果文件夹不存在那么会报异常
     // System.IO.DirectoryNotFoundException:“Could not find a part of the path 'C:\\shaTest\\text.txt'.”
     // std::ofstream ofs(path, std::ios::out | std::ios::binary);// std的这个在windows下utf8路径不行
@@ -204,6 +214,13 @@ void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 
 void File::WriteAllText(const std::string& path, const std::string& contents)
 {
+    FileInfo fi(path);
+    DirectoryInfo di(fi.DirectoryName());
+
+    if (!di.Exists()) {
+        di.Create(true);
+    }
+
     // ios::trunc 如果文件已存在则先删除该文件
     Poco::FileOutputStream ofs(path);
 
