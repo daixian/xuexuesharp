@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <thread>
 
 #include "Poco/Path.h"
 #include "Poco/File.h"
@@ -193,7 +194,7 @@ std::string File::ReadAllText(const std::string& path, Encoding encoding)
     }
 }
 
-void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
+bool File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 {
     FileInfo fi(path);
     DirectoryInfo di(fi.DirectoryName());
@@ -204,15 +205,31 @@ void File::WriteAllBytes(const std::string& path, const char* bytes, int len)
 
     // 如果文件夹不存在那么会报异常
     // System.IO.DirectoryNotFoundException:“Could not find a part of the path 'C:\\shaTest\\text.txt'.”
-    // std::ofstream ofs(path, std::ios::out | std::ios::binary);// std的这个在windows下utf8路径不行
-    Poco::FileOutputStream ofs(path);
-    if (ofs) {
-        ofs.write(bytes, static_cast<std::streamsize>(len));
-        ofs.close();
+    //
+    bool success = false;
+    // 尝试2次吧
+    for (size_t i = 0; i < 2; i++) {
+        try {
+            // std::ofstream ofs(path, std::ios::out | std::ios::binary);// std的这个在windows下utf8路径不行
+            Poco::FileOutputStream ofs(path, std::ios::out | std::ios::trunc);
+            if (ofs) {
+                ofs.write(bytes, static_cast<std::streamsize>(len));
+                ofs.close();
+                success = true;
+            }
+        }
+        catch (const std::exception&) {
+            // 多半是IO错误，等5ms吧
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
+        if (success) {
+            break;
+        }
     }
+    return success;
 }
 
-void File::WriteAllText(const std::string& path, const std::string& contents)
+bool File::WriteAllText(const std::string& path, const std::string& contents)
 {
     FileInfo fi(path);
     DirectoryInfo di(fi.DirectoryName());
@@ -221,17 +238,31 @@ void File::WriteAllText(const std::string& path, const std::string& contents)
         di.Create(true);
     }
 
-    // ios::trunc 如果文件已存在则先删除该文件
-    Poco::FileOutputStream ofs(path);
-
-    // std::ofstream ofs(path, std::ios::out | std::ios::binary);   // std的这个在windows下utf8路径不行
-    if (ofs) {
-        ofs << contents;
+    bool success = false;
+    // 尝试2次吧
+    for (size_t i = 0; i < 2; i++) {
+        try {
+            // ios::trunc 如果文件已存在则先删除该文件
+            Poco::FileOutputStream ofs(path, std::ios::out | std::ios::trunc);
+            // std::ofstream ofs(path, std::ios::out | std::ios::binary);   // std的这个在windows下utf8路径不行
+            if (ofs) {
+                ofs << contents;
+            }
+            ofs.close();
+            success = true;
+        }
+        catch (const std::exception&) {
+            // 多半是IO错误，等5ms吧
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
+        if (success) {
+            break;
+        }
     }
-    ofs.close();
+    return success;
 }
 
-void File::WriteAllText(const std::string& path, const std::string& contents, Encoding encoding)
+bool File::WriteAllText(const std::string& path, const std::string& contents, Encoding encoding)
 {
     // C#里面的字符串应该都是UTF8的
     if (encoding == Encoding::GBK) {
@@ -241,8 +272,7 @@ void File::WriteAllText(const std::string& path, const std::string& contents, En
         std::string dst;
         converter.convert(contents, dst);
 
-        WriteAllText(path, dst);
-        return;
+        return WriteAllText(path, dst);
     }
     else if (encoding == Encoding::UTF16) {
         Poco::UTF16Encoding utf16;
@@ -251,11 +281,10 @@ void File::WriteAllText(const std::string& path, const std::string& contents, En
         std::string dst;
         converter.convert(contents, dst);
 
-        WriteAllText(path, dst);
-        return;
+        return WriteAllText(path, dst);
     }
     else {
-        WriteAllText(path, contents);
+        return WriteAllText(path, contents);
     }
 }
 

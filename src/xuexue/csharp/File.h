@@ -123,42 +123,39 @@ class File
     static std::string ReadAllText(const std::string& path, Encoding encoding);
 
     /**
-     * 打开一个文件，向其中写入指定的字节，然后关闭此文件。
-     * C#中如果文件夹不存在那么会抛出异常.这里如果文件夹不存在则会创建文件夹。
+     * @brief 打开一个文件，向其中写入指定的字节，然后关闭此文件。
+     *        C#中如果文件夹不存在那么会抛出异常.这里如果文件夹不存在则会创建文件夹。
      *
-     * @author daixian
-     * @date 2020/9/25
+     * @param path 要写入的文件路径.
+     * @param[in] bytes 要写入文件的字节数组
+     * @param len 要写入的长度.
      *
-     * @param      path  要写入的文件.
-     * @param [in] bytes 要写入文件的字节数组.
-     * @param      len   要写入的长度.
+     * @return 成功返回true.
      */
-    static void WriteAllBytes(const std::string& path, const char* bytes, int len);
+    static bool WriteAllBytes(const std::string& path, const char* bytes, int len);
 
     /**
      * 创建一个新文件，向其中写入指定的字符串，然后关闭文件。 如果目标文件已存在，则覆盖该文件。
      * C#中如果文件夹不存在那么会抛出异常.这里如果文件夹不存在则会创建文件夹。
      *
-     * @author daixian
-     * @date 2020/9/25
-     *
      * @param  path     要写入的文件.
      * @param  contents 要写入文件的内容.
+     *
+     * @return 成功返回true.
      */
-    static void WriteAllText(const std::string& path, const std::string& contents);
+    static bool WriteAllText(const std::string& path, const std::string& contents);
 
     /**
      * 创建一个新文件，使用指定编码向其中写入指定的字符串，然后关闭文件。 如果目标文件已存在，则覆盖该文件。
      * C#中如果文件夹不存在那么会抛出异常.这里如果文件夹不存在则会创建文件夹。
      *
-     * @author daixian
-     * @date 2020/9/25
-     *
      * @param  path     要写入的文件.
      * @param  contents 要写入文件的内容.
      * @param  encoding 这个文件的编码.
+     *
+     * @return 成功返回true.
      */
-    static void WriteAllText(const std::string& path, const std::string& contents, Encoding encoding);
+    static bool WriteAllText(const std::string& path, const std::string& contents, Encoding encoding);
 };
 
 } // namespace csharp
